@@ -1,0 +1,31 @@
+package com.efremov.weather.today;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
+import android.os.Bundle;
+
+import com.efremov.weather.BR;
+import com.efremov.weather.R;
+import com.efremov.weather.base.BindingActivity;
+import com.efremov.weather.databinding.ActivityTodayWeatherBinding;
+import com.efremov.weather.model.Weather;
+
+public class TodayWeatherActivity extends BindingActivity<ActivityTodayWeatherBinding, TodayWeatherViewModel> {
+
+    @Override
+    public TodayWeatherViewModel onCreate() {
+        return new TodayWeatherViewModel(this);
+    }
+
+    @Override
+    public int getVariable() {
+        return BR.weather;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_today_weather;
+    }
+
+}
