@@ -1,6 +1,8 @@
 package com.efremov.weather.today;
 
 import androidx.databinding.ObservableField;
+
+import com.efremov.weather.base.model.entities.ResponseAnswer;
 import com.efremov.weather.model.WeatherItem;
 import com.efremov.weather.model.api.IWeatherRepo;
 import com.efremov.weather.model.api.WeatherRepo;
@@ -22,7 +24,11 @@ public class TodayWeatherViewModel extends ActivityViewModel<TodayWeatherActivit
         weatherRepo.getWeather(this::onWeatherLoaded);
     }
 
-    private void onWeatherLoaded(WeatherItem weather) {
-        name.set(weather.getName());
+    private void onWeatherLoaded(WeatherItem weather, String error) {
+        if (weather == null) {
+            name.set(error);
+            return;
+        }
+        name.set(weather.getDt_txt());
     }
 }
