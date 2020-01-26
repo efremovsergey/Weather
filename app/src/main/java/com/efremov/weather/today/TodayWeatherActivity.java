@@ -28,4 +28,8 @@ public class TodayWeatherActivity extends BindingActivity<ActivityTodayWeatherBi
         return R.layout.activity_today_weather;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 }

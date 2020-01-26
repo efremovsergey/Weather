@@ -18,7 +18,7 @@ public abstract class ActivityViewModel<A extends AppCompatActivity>
     }
 
     public void onStart() {
-        //Override me!
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

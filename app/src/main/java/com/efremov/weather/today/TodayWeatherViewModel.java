@@ -7,8 +7,13 @@ import androidx.databinding.ObservableBoolean;
 
 import com.efremov.weather.base.ActivityViewModel;
 
-public class TodayWeatherViewModel extends ActivityViewModel {
-    public TodayWeatherViewModel(AppCompatActivity activity) {
+public class TodayWeatherViewModel extends ActivityViewModel<TodayWeatherActivity> {
+    public TodayWeatherViewModel(TodayWeatherActivity activity) {
         super(activity);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 }
