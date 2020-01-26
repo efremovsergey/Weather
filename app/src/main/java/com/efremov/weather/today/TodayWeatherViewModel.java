@@ -1,16 +1,10 @@
 package com.efremov.weather.today;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
-import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
-import com.efremov.weather.model.Weather;
+import com.efremov.weather.model.WeatherItem;
 import com.efremov.weather.model.api.IWeatherRepo;
 import com.efremov.weather.model.api.WeatherRepo;
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel;
-
-import java.io.IOException;
 
 public class TodayWeatherViewModel extends ActivityViewModel<TodayWeatherActivity> {
 
@@ -28,7 +22,7 @@ public class TodayWeatherViewModel extends ActivityViewModel<TodayWeatherActivit
         weatherRepo.getWeather(this::onWeatherLoaded);
     }
 
-    private void onWeatherLoaded(Weather weather) {
+    private void onWeatherLoaded(WeatherItem weather) {
         name.set(weather.getName());
     }
 }

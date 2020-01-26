@@ -3,10 +3,7 @@ package com.efremov.weather.base.model;
 import java.io.IOException;
 import android.os.Handler;
 
-import com.efremov.weather.model.Weather;
-
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
 
 import okhttp3.Call;
 import okhttp3.Callback;
