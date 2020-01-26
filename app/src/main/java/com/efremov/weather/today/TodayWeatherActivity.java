@@ -7,9 +7,9 @@ import android.os.Bundle;
 
 import com.efremov.weather.BR;
 import com.efremov.weather.R;
-import com.efremov.weather.base.BindingActivity;
 import com.efremov.weather.databinding.ActivityTodayWeatherBinding;
 import com.efremov.weather.model.Weather;
+import com.stfalcon.androidmvvmhelper.mvvm.activities.BindingActivity;
 
 public class TodayWeatherActivity extends BindingActivity<ActivityTodayWeatherBinding, TodayWeatherViewModel> {
 
@@ -20,7 +20,7 @@ public class TodayWeatherActivity extends BindingActivity<ActivityTodayWeatherBi
 
     @Override
     public int getVariable() {
-        return BR.weather;
+        return BR.weatherViewModel;
     }
 
     @Override
