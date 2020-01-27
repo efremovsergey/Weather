@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Weather</string>
+    <string name="cant_read_location">Не удалось получить местоположение. Будет использоваться Москва.</string>
+    <string name="read_location">Местоположение найдено</string>
 </resources>
