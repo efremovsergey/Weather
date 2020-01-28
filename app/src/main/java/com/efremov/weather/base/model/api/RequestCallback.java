@@ -1,4 +1,4 @@
-package com.efremov.weather.base.model;
+package com.efremov.weather.base.model.api;
 
 public interface RequestCallback {
     void success(String result);

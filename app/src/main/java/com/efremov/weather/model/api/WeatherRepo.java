@@ -1,7 +1,7 @@
 package com.efremov.weather.model.api;
 
-import com.efremov.weather.base.model.Api;
-import com.efremov.weather.base.model.RequestCallback;
+import com.efremov.weather.base.model.api.Api;
+import com.efremov.weather.base.model.api.RequestCallback;
 import com.efremov.weather.base.model.entities.ResponseAnswer;
 import com.google.gson.Gson;
 

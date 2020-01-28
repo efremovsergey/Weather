@@ -1,4 +1,4 @@
-package com.efremov.weather.base.model;
+package com.efremov.weather.base.model.api;
 
 import java.io.IOException;
 import android.os.Handler;
