@@ -8,7 +8,11 @@ import java.util.List;
 
 public class App extends Application {
     private static App instance;
-    public static App app() { return instance; }
+
+    public static synchronized App getInstance() {
+        instance = instance == null ? new App() : instance;
+        return instance;
+    }
     private Prefs prefs;
 
     private List<Weather> weatherList;

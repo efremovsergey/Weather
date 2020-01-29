@@ -1,5 +1,7 @@
 package com.efremov.weather.today;
 
+import androidx.appcompat.app.ActionBar;
+
 import com.efremov.weather.BR;
 import com.efremov.weather.R;
 import com.efremov.weather.databinding.ActivityTodayWeatherBinding;
@@ -25,5 +27,15 @@ public class TodayWeatherActivity extends BindingActivity<ActivityTodayWeatherBi
     @Override
     protected void onStart() {
         super.onStart();
+
+        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+            //TODO: to strings
+            actionBar.setTitle("Погода");
+//        }
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

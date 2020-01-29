@@ -3,16 +3,21 @@ package com.efremov.weather.splash.fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.SystemClock;
 
 import androidx.databinding.ObservableField;
 
 import com.efremov.weather.R;
-import com.efremov.weather.base.model.PermissionRequester;
+import com.efremov.weather.base.model.App;
+import com.efremov.weather.today.TodayWeatherActivity;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
-
-import static com.efremov.weather.base.model.App.app;
 
 public class ConfigFragmentVM extends FragmentViewModel<ConfigFragment> {
 
@@ -21,53 +26,42 @@ public class ConfigFragmentVM extends FragmentViewModel<ConfigFragment> {
     }
 
     public final ObservableField<String> loadingState = new ObservableField<>();
-    public final ObservableField<String> field = new ObservableField<String>() {
-        @Override
-        public String get() {
-            return super.get();
-        }
-
-        @Override
-        public void set(String value) {
-            super.set(value);
-        }
-    };
 
     @Override
     public void onResume() {
         super.onResume();
-        loadSavedData();
+        HandlerThread mThread = new HandlerThread("ServiceArguments",
+                HandlerThread.MIN_PRIORITY);
+        mThread.start();
+        Handler mHandler = new Handler(mThread.getLooper());
+        mHandler.post(this::loadSavedData);
     }
 
     private void loadSavedData() {
         loadingState.set("Загружаем данные");
-        boolean result = app().loadData();
+        boolean result = App.getInstance().loadData();
         if (!result) {
             loadingState.set("Данных нет, либо они повреждены!");
+            SystemClock.sleep(500);
         }
-        SystemClock.sleep(1500);
-        getCurrentLocation();
+        Location location = getCurrentLocale();
+        loadingState.set(location == null ?  getActivity().getResources().getString(R.string.cant_read_location) : getActivity().getResources().getString(R.string.read_location));
+        navigate(TodayWeatherActivity.class);
     }
 
-    private void getCurrentLocation() {
-        PermissionRequester.getInstance().requestPermission(new PermissionRequester.OnResultListener() {
-            @SuppressLint("MissingPermission")
-            @Override
-            public void onPermissionGranted() {
-                LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-                if (lm != null) {
-                    lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    loadingState.set(getActivity().getResources().getString(R.string.read_location));
-                    //TODO: pass to app
-                } else {
-                    loadingState.set(getActivity().getResources().getString(R.string.cant_read_location));
-                }
+    private Location getCurrentLocale() {
+        LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return null;
             }
+        }
+        return lm != null ? lm.getLastKnownLocation(LocationManager.GPS_PROVIDER) : null;
+    }
 
-            @Override
-            public void onPermissionDenied() {
-                loadingState.set(getActivity().getResources().getString(R.string.cant_read_location));
-            }
-        }, Manifest.permission.ACCESS_FINE_LOCATION);
+    private void navigate(Class<?> destination) {
+        Intent intent = new Intent(getActivity(), destination);
+        getActivity().startActivity(intent);
     }
 }
