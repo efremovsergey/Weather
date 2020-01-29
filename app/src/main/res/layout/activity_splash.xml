@@ -56,7 +56,9 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/ic_cloud_queue_black_24dp" />
 
-        <LinearLayout
+        <fragment
+            android:id="@+id/config"
+            android:name="com.efremov.weather.splash.fragment.ConfigFragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -65,26 +67,6 @@
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4">
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="false"
-                android:indeterminateTint="@color/colorAccent"
-                android:indeterminateBehavior="repeat" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@{splashViewModel.loadingState, default=Загрузка}"
-                android:textAlignment="center"
-                android:textColor="@android:color/background_dark"
-                android:textSize="18sp" />
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
