@@ -27,12 +27,6 @@ public class TodayWeatherActivity extends BindingActivity<ActivityTodayWeatherBi
     @Override
     protected void onStart() {
         super.onStart();
-
-        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-            //TODO: to strings
-            actionBar.setTitle("Погода");
-//        }
     }
 
     @Override
