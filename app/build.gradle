@@ -38,4 +38,5 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.3.1")
     implementation 'com.github.stfalcon:androidmvvmhelper:0.4'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.android.material:material:1.0.0'
 }

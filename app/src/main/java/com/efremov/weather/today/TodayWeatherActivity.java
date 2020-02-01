@@ -1,6 +1,7 @@
 package com.efremov.weather.today;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.viewpager.widget.ViewPager;
 
 import com.efremov.weather.BR;
 import com.efremov.weather.R;
@@ -11,7 +12,7 @@ public class TodayWeatherActivity extends BindingActivity<ActivityTodayWeatherBi
 
     @Override
     public TodayWeatherViewModel onCreate() {
-        return new TodayWeatherViewModel(this);
+        return new TodayWeatherViewModel(this, this);
     }
 
     @Override
