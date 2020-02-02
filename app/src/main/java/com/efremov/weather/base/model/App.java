@@ -2,9 +2,12 @@ package com.efremov.weather.base.model;
 
 import android.app.Application;
 
-import com.efremov.weather.model.Weather;
+import com.efremov.weather.base.model.entities.Weather;
 
 import java.util.List;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
     private static App instance;
@@ -18,11 +21,17 @@ public class App extends Application {
     private List<Weather> weatherList;
     private Weather todayWeather;
 
+    private Retrofit retrofit;
+
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
         prefs = new Prefs(this.getApplicationContext());
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.weather.yandex.ru/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 
     public boolean loadData() {
@@ -46,5 +55,9 @@ public class App extends Application {
 
     public void setTodayWeather(Weather todayWeather) {
         this.todayWeather = todayWeather;
+    }
+
+    public Retrofit getRetrofit() {
+        return retrofit;
     }
 }

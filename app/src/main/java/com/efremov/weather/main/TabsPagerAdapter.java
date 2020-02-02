@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.efremov.weather.R;
+import com.efremov.weather.today.SingleCardFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
