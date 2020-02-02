@@ -16,7 +16,7 @@ import androidx.databinding.ObservableField;
 
 import com.efremov.weather.R;
 import com.efremov.weather.base.model.App;
-import com.efremov.weather.today.TodayWeatherActivity;
+import com.efremov.weather.main.MainActivity;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
 
 public class ConfigFragmentVM extends FragmentViewModel<ConfigFragment> {
@@ -46,7 +46,7 @@ public class ConfigFragmentVM extends FragmentViewModel<ConfigFragment> {
         }
         Location location = getCurrentLocale();
         loadingState.set(location == null ?  getActivity().getResources().getString(R.string.cant_read_location) : getActivity().getResources().getString(R.string.read_location));
-        navigate(TodayWeatherActivity.class);
+        navigate(MainActivity.class);
     }
 
     private Location getCurrentLocale() {

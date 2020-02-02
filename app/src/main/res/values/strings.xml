@@ -2,5 +2,7 @@
     <string name="app_name">Weather</string>
     <string name="cant_read_location">Не удалось получить местоположение. Будет использоваться Москва.</string>
     <string name="read_location">Местоположение найдено</string>
-    <string name="_123">123</string>
+    <string name="tab_text_1">Сегодня</string>
+    <string name="tab_text_2">Списоком</string>
+
 </resources>

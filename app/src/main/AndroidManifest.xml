@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".today.TodayWeatherActivity"
+        <activity android:name=".main.MainActivity"
             android:theme="@style/AppTheme">
         </activity>
     </application>
