@@ -14,6 +14,7 @@ public interface ServerApi {
     Call<Weather> getWeather(
             @Query("lat") double lat,
             @Query("lon") double lon,
+            @Query("limit") int limit,
             @Header("X-Yandex-API-Key") String yandexKey
     );
 }

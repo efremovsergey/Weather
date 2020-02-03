@@ -1,7 +1,6 @@
 package com.efremov.weather.splash.fragment;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,7 +20,7 @@ import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
 
 public class ConfigFragmentVM extends FragmentViewModel<ConfigFragment> {
 
-    public ConfigFragmentVM(ConfigFragment fragment) {
+    ConfigFragmentVM(ConfigFragment fragment) {
         super(fragment);
     }
 
@@ -46,7 +45,7 @@ public class ConfigFragmentVM extends FragmentViewModel<ConfigFragment> {
         }
         Location location = getCurrentLocale();
         loadingState.set(location == null ?  getActivity().getResources().getString(R.string.cant_read_location) : getActivity().getResources().getString(R.string.read_location));
-        navigate(MainActivity.class);
+        navigate(location);
     }
 
     private Location getCurrentLocale() {
@@ -60,8 +59,9 @@ public class ConfigFragmentVM extends FragmentViewModel<ConfigFragment> {
         return lm != null ? lm.getLastKnownLocation(LocationManager.GPS_PROVIDER) : null;
     }
 
-    private void navigate(Class<?> destination) {
-        Intent intent = new Intent(getActivity(), destination);
+    private void navigate(Location location) {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.putExtra("LOCATION", location);
         getActivity().startActivity(intent);
     }
 }

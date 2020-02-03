@@ -4,7 +4,7 @@ public class Weather {
 
     private int now;
     private String nowDt;
-    Info info;
+    private Info info;
 
     public int getNow() {
         return now;
@@ -12,5 +12,9 @@ public class Weather {
 
     public String getNowDt() {
         return nowDt;
+    }
+
+    public Info getInfo() {
+        return info;
     }
 }

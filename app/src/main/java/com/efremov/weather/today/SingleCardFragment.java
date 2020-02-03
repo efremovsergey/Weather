@@ -1,18 +1,7 @@
 package com.efremov.weather.today;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.efremov.weather.R;
 import com.efremov.weather.databinding.FragmentSingleCardBinding;
-import com.efremov.weather.today.SingleCardFragmentVM;
-import com.efremov.weather.main.PageViewModel;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.BindingFragment;
 
 public class SingleCardFragment extends BindingFragment<SingleCardFragmentVM, FragmentSingleCardBinding> {
@@ -32,7 +21,7 @@ public class SingleCardFragment extends BindingFragment<SingleCardFragmentVM, Fr
 
     @Override
     public int getVariable() {
-        return com.efremov.weather.BR.viewModel;
+        return com.efremov.weather.BR.singleCardViewModel;
     }
 
     @Override
