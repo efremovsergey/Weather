@@ -10,10 +10,12 @@ import com.stfalcon.androidmvvmhelper.mvvm.activities.BindingActivity;
 
 public class MainActivity extends BindingActivity<MainActivityBinding, PageViewModel> {
 
+    public TabsPagerAdapter tabsPagerAdapter;
+
     @Override
     public PageViewModel onCreate() {
 //        setContentView(R.layout.main_activity);
-        TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(this, getSupportFragmentManager());
+        tabsPagerAdapter = new TabsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(tabsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
@@ -34,5 +36,10 @@ public class MainActivity extends BindingActivity<MainActivityBinding, PageViewM
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    //TODO: fix this, not mvvm method
+    void onRetryNetworkConnection() {
+        tabsPagerAdapter.getItem(tabsPagerAdapter.getCurrentPage());
     }
 }
