@@ -5,12 +5,16 @@ import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import com.efremov.weather.R;
 import com.efremov.weather.base.utils.NoInternetFragment;
@@ -22,25 +26,33 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     private static final int[] TAB_TITLES =
             new int[] { R.string.tab_text_1, R.string.tab_text_2 };
     private final Context mContext;
-    private int currentPage;
+    private final FragmentManager fm;
+    //TODO: remove
+//    boolean flag = true;
 
     public TabsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
+        this.fm = fm;
         mContext = context;
     }
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                currentPage = 0;
+//                if (flag) {
+//                    flag = false;
+//                    return SingleCardFragment.newInstance();
+//                }
                 return NoInternetFragment.newInstance();
             case 1:
-                currentPage = 1;
                 return SingleCardFragment.newInstance();
             default:
-                currentPage = 0;
                 return null;
         }
+    }
+
+    public void reloadPage(int position) {
+//        this.startUpdate(this);
     }
 
     private boolean isNetworkConnected() {
@@ -66,12 +78,8 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         return mContext.getResources().getString(TAB_TITLES[position]);
     }
 
-    int getCurrentPage() {
-        return currentPage;
-    }
-
     @Override
     public int getCount() {
-        return 2;
+        return TAB_TITLES.length;
     }
 }

@@ -1,18 +1,11 @@
 package com.efremov.weather.main;
 
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
-import androidx.lifecycle.ViewModel;
-import com.efremov.weather.base.model.App;
-import com.efremov.weather.base.model.api.ServerApi;
-import com.efremov.weather.base.model.entities.Weather;
-import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.efremov.weather.base.model.live_data.LiveDataBus;
+import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel;
 
 public class PageViewModel extends ActivityViewModel<MainActivity> {
 
@@ -34,6 +27,9 @@ public class PageViewModel extends ActivityViewModel<MainActivity> {
     @Override
     public void onStart() {
         super.onStart();
+        LiveDataBus.subscribe(LiveDataBus.SUBJECT_DATA_LOADED, this.getActivity(), (data) -> {
+            getActivity().tabsPagerAdapter.reloadPage(getActivity().viewPager.getCurrentItem());
+        });
 
     }
 

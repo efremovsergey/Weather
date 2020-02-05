@@ -1,4 +1,4 @@
-package com.efremov.weather.base.model;
+package com.efremov.weather.base.model.app;
 
 import android.content.Context;
 import android.content.SharedPreferences;

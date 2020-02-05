@@ -1,10 +1,11 @@
 package com.efremov.weather.splash;
 
 import com.efremov.weather.R;
+import com.efremov.weather.base.utils.BaseActivity;
 import com.efremov.weather.databinding.ActivitySplashBinding;
 import com.stfalcon.androidmvvmhelper.mvvm.activities.BindingActivity;
 
-public class SplashActivity extends BindingActivity<ActivitySplashBinding, SplashViewModel> {
+public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashViewModel> {
 
     @Override
     public SplashViewModel onCreate() {

@@ -4,7 +4,7 @@ import android.location.Location;
 
 import androidx.databinding.ObservableField;
 
-import com.efremov.weather.base.model.App;
+import com.efremov.weather.base.model.app.App;
 import com.efremov.weather.base.model.api.ServerApi;
 import com.efremov.weather.base.model.entities.Weather;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;

@@ -14,7 +14,7 @@ import android.os.SystemClock;
 import androidx.databinding.ObservableField;
 
 import com.efremov.weather.R;
-import com.efremov.weather.base.model.App;
+import com.efremov.weather.base.model.app.App;
 import com.efremov.weather.main.MainActivity;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
 

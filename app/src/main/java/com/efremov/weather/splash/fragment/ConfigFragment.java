@@ -10,11 +10,12 @@ import androidx.core.content.ContextCompat;
 
 import com.efremov.weather.R;
 import com.efremov.weather.BR;
+import com.efremov.weather.base.utils.BaseFragment;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.BindingFragment;
 import com.efremov.weather.databinding.FragmentConfigBinding;
 
 
-public class ConfigFragment extends BindingFragment<ConfigFragmentVM, FragmentConfigBinding> {
+public class ConfigFragment extends BaseFragment<ConfigFragmentVM, FragmentConfigBinding> {
 
     public ConfigFragment() {
         // Required empty public constructor
