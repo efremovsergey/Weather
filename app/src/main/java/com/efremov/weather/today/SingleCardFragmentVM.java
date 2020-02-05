@@ -1,21 +1,14 @@
 package com.efremov.weather.today;
 
-import android.location.Location;
-
 import androidx.databinding.ObservableField;
 
-import com.efremov.weather.base.model.app.App;
-import com.efremov.weather.base.model.api.ServerApi;
+import com.efremov.weather.base.model.api.IWeatherRepo;
 import com.efremov.weather.base.model.entities.Weather;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
 
-import org.jetbrains.annotations.NotNull;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class SingleCardFragmentVM extends FragmentViewModel<SingleCardFragment> {
+
+    private IWeatherRepo weatherRepo;
 
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> latlon = new ObservableField<>();
@@ -33,35 +26,18 @@ public class SingleCardFragmentVM extends FragmentViewModel<SingleCardFragment> 
 
     SingleCardFragmentVM(SingleCardFragment fragment) {
         super(fragment);
-        loadWeather();
-    }
+        IWeatherRepo.Loader<Weather> loader = new IWeatherRepo.Loader<Weather>() {
 
-    private void loadWeather() {
-        Location location = getActivity().getIntent().getParcelableExtra("LOCATION");
-        ServerApi serverApi = App.getInstance().getRetrofit().create(ServerApi.class);
-
-        Call<Weather> weather = serverApi.getWeather(
-                location.getLatitude(), location.getLongitude(), 1, "c1cff6b8-21e5-44b8-8003-753e6f737ef6"
-        );
-
-        weather.enqueue(new Callback<Weather>() {
             @Override
-            public void onResponse(@NotNull Call<Weather> call, @NotNull Response<Weather> response) {
-                if (response.isSuccessful()) {
-                    name.set("Успешно");
-                    latlon.set(response.body().getInfo().getLat() + " " + response.body().getInfo().getLon());
-                    //TODO:
-                } else {
-                    name.set("Ошибка парсинга");
-                    //TODO:
-                }
+            public void onLoaded(Weather weather) {
+                name.set("Успешно");
             }
 
             @Override
-            public void onFailure(@NotNull Call<Weather> call, @NotNull Throwable t) {
-                name.set("Ошибка запроса");
-                // TODO:
+            public void onError(String error) {
+                name.set(error);
             }
-        });
+        };
+        weatherRepo.getWeather(loader, 1, getActivity().getIntent().getParcelableExtra("LOCATION"));
     }
 }
