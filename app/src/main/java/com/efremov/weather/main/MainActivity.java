@@ -27,6 +27,7 @@ public class MainActivity extends BaseActivity<MainActivityBinding, PageViewMode
         viewPager.setAdapter(tabsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+        shouldHideContent();
         return new PageViewModel(this);
     }
 

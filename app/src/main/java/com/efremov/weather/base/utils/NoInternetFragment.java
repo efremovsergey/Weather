@@ -1,5 +1,6 @@
 package com.efremov.weather.base.utils;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleRegistry;
 
 import com.efremov.weather.R;

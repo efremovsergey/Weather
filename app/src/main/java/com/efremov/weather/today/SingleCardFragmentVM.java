@@ -38,6 +38,6 @@ public class SingleCardFragmentVM extends FragmentViewModel<SingleCardFragment> 
                 name.set(error);
             }
         };
-        weatherRepo.getWeather(loader, 1, getActivity().getIntent().getParcelableExtra("LOCATION"));
+//            weatherRepo.getWeather(loader, 1, getActivity().getIntent().getParcelableExtra("LOCATION"));
     }
 }

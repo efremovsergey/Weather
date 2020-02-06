@@ -27,11 +27,6 @@ public class PageViewModel extends ActivityViewModel<MainActivity> {
     @Override
     public void onStart() {
         super.onStart();
-        LiveDataBus.subscribe(LiveDataBus.SUBJECT_DATA_LOADED, this.getActivity(), (data) -> {
-            //TODO: решить вопрос с обновлением элемента
-            getActivity().tabsPagerAdapter.reloadPage(getActivity().viewPager.getCurrentItem());
-        });
-
     }
 
     private void updateCurrentWeather() {
