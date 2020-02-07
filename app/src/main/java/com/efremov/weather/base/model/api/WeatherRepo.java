@@ -29,7 +29,7 @@ public class WeatherRepo implements IWeatherRepo {
 //                    latlon.set(response.body().getInfo().getLat() + " " + response.body().getInfo().getLon());
                     //TODO:
                 } else {
-                    loader.onError("Ошибка запроса");
+                    loader.onLoaded(null);
 //                    name.set("Ошибка парсинга");
                     //TODO:
                 }
@@ -37,7 +37,7 @@ public class WeatherRepo implements IWeatherRepo {
 
             @Override
             public void onFailure(@NotNull Call<Weather> call, @NotNull Throwable t) {
-                loader.onError("Ошибка запроса");
+                loader.onLoaded(null);
 //                name.set("Ошибка запроса");
                 // TODO:
             }

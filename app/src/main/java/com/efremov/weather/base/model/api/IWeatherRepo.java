@@ -9,6 +9,5 @@ public interface IWeatherRepo {
 
     interface Loader<T> {
         void onLoaded(T t);
-        void onError(String error);
     }
 }
