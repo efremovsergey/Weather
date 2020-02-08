@@ -44,6 +44,7 @@ public class ConfigFragmentVM extends FragmentViewModel<ConfigFragment> {
             SystemClock.sleep(500);
         }
         Location location = getCurrentLocale();
+        App.getInstance().setMyLocation(location);
         loadingState.set(location == null ?  getActivity().getResources().getString(R.string.cant_read_location) : getActivity().getResources().getString(R.string.read_location));
         navigate(location);
     }
@@ -61,7 +62,6 @@ public class ConfigFragmentVM extends FragmentViewModel<ConfigFragment> {
 
     private void navigate(Location location) {
         Intent intent = new Intent(getActivity(), MainActivity.class);
-        intent.putExtra("LOCATION", location);
         getActivity().startActivity(intent);
     }
 }

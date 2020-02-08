@@ -1,6 +1,7 @@
 package com.efremov.weather.base.model.app;
 
 import android.app.Application;
+import android.location.Location;
 
 import com.efremov.weather.base.model.entities.Weather;
 
@@ -20,6 +21,7 @@ public class App extends Application {
 
     private List<Weather> weatherList;
     private Weather todayWeather;
+    private Location myLocation;
 
     private Retrofit retrofit;
 
@@ -59,5 +61,13 @@ public class App extends Application {
 
     public Retrofit getRetrofit() {
         return retrofit;
+    }
+
+    public Location getMyLocation() {
+        return myLocation;
+    }
+
+    public void setMyLocation(Location myLocation) {
+        this.myLocation = myLocation;
     }
 }

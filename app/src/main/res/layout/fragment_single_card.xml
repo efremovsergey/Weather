@@ -4,13 +4,11 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
+
         <variable
             name="singleCardViewModel"
             type="com.efremov.weather.today.SingleCardFragmentVM" />
-
-        <variable
-            name="isLoading"
-            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -263,16 +261,21 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <include
-                    android:id="@+id/loading_view"
-                    layout="@layout/loading_view"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="@{isLoading}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:visibility="@{singleCardViewModel.isLoading ? View.GONE : View.VISIBLE}">
+
+                    <include
+                        android:id="@+id/loading_view"
+                        layout="@layout/loading_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 

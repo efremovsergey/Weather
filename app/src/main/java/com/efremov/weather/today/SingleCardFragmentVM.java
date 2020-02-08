@@ -1,5 +1,6 @@
 package com.efremov.weather.today;
 
+import android.location.Location;
 import android.view.View;
 
 import androidx.databinding.BindingAdapter;
@@ -8,21 +9,16 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
 import com.efremov.weather.base.model.api.IWeatherRepo;
+import com.efremov.weather.base.model.api.WeatherRepo;
+import com.efremov.weather.base.model.app.App;
 import com.efremov.weather.base.model.entities.Weather;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
-
-import static com.efremov.weather.BR.isLoading;
 
 public class SingleCardFragmentVM extends FragmentViewModel<SingleCardFragment> {
 
     private IWeatherRepo weatherRepo;
 
-    @BindingAdapter("isLoading")
-    public static int isLoading(View view, boolean visible) {
-        return visible ? View.VISIBLE : View.GONE;
-    }
-
-//    public final ObservableBoolean
+    public final ObservableBoolean isLoading = new ObservableBoolean();
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> latlon = new ObservableField<>();
     public final ObservableField<String> field = new ObservableField<String>() {
@@ -39,12 +35,23 @@ public class SingleCardFragmentVM extends FragmentViewModel<SingleCardFragment> 
 
     SingleCardFragmentVM(SingleCardFragment fragment) {
         super(fragment);
-//        isLoading.set(false);
-        weatherRepo.getWeather(this::onWeatherLoaded, 1, getActivity().getIntent().getParcelableExtra("LOCATION"));
+        weatherRepo = new WeatherRepo();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Location location = App.getInstance().getMyLocation();
+        //TODO: magic numbers to const
+        weatherRepo.getWeather(
+                this::onWeatherLoaded,
+                1,
+                location != null ? location.getLatitude() : 55.753960,
+                location != null ? location.getLongitude() : 37.620393);
     }
 
     private void onWeatherLoaded(Weather weather) {
-//        isLoading.set(false);
+        isLoading.set(true);
         if (weather != null) {
             name.set("Успешно");
         } else {
