@@ -28,9 +28,4 @@ public abstract class BaseFragment<VM extends FragmentViewModel, B extends ViewD
         }
         return mRegistry;
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
 }

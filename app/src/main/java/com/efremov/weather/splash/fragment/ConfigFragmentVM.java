@@ -61,7 +61,7 @@ public class ConfigFragmentVM extends FragmentViewModel<ConfigFragment> {
     }
 
     private void navigate(Location location) {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
+        Intent intent = new Intent(getActivity().getApplication(), MainActivity.class);
         getActivity().startActivity(intent);
     }
 }

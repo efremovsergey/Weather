@@ -39,7 +39,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return SingleCardFragment.newInstance();
             case 1:
-                return SingleCardFragment.newInstance();
+                return NoInternetFragment.newInstance();
             default:
                 return null;
         }
