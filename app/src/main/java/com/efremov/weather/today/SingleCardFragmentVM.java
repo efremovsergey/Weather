@@ -1,16 +1,16 @@
 package com.efremov.weather.today;
 
 import android.location.Location;
-import android.view.View;
 
-import androidx.databinding.BindingAdapter;
-import androidx.databinding.BindingConversion;
 import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableDouble;
 import androidx.databinding.ObservableField;
 
+import com.efremov.weather.R;
 import com.efremov.weather.base.model.api.IWeatherRepo;
 import com.efremov.weather.base.model.api.WeatherRepo;
 import com.efremov.weather.base.model.app.App;
+import com.efremov.weather.base.model.binding.BindingAdapters;
 import com.efremov.weather.base.model.entities.Weather;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
 
@@ -21,6 +21,10 @@ public class SingleCardFragmentVM extends FragmentViewModel<SingleCardFragment> 
     public final ObservableBoolean isLoading = new ObservableBoolean();
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> latlon = new ObservableField<>();
+    public final ObservableDouble temp = new ObservableDouble();
+    public final ObservableDouble windSpeed = new ObservableDouble();
+    public final ObservableField<String> windDirection = new ObservableField<>();
+    public final ObservableField<String> url = new ObservableField<>();
     public final ObservableField<String> field = new ObservableField<String>() {
         @Override
         public String get() {
@@ -54,6 +58,7 @@ public class SingleCardFragmentVM extends FragmentViewModel<SingleCardFragment> 
         isLoading.set(true);
         if (weather != null) {
             name.set("Успешно");
+            url.set(weather.getFact().getIcon());
         } else {
             name.set("Ошибка");
         }

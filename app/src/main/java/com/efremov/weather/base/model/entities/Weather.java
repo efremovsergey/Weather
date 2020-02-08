@@ -5,6 +5,7 @@ public class Weather {
     private int now;
     private String nowDt;
     private Info info;
+    private Fact fact;
 
     public int getNow() {
         return now;
@@ -16,5 +17,9 @@ public class Weather {
 
     public Info getInfo() {
         return info;
+    }
+
+    public Fact getFact() {
+        return fact;
     }
 }

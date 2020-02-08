@@ -5,6 +5,11 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.efremov.weather.R" />
+
+        <variable
+            name="url"
+            type="java.lang.String"/>
 
         <variable
             name="singleCardViewModel"
@@ -147,11 +152,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
+                        android:src="@{singleCardViewModel.url}"
                         app:layout_constraintBottom_toTopOf="@+id/view"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView8"
-                        app:srcCompat="@mipmap/ic_launcher" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
                     <View
                         android:id="@+id/view"
