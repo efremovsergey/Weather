@@ -18,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.efremov.weather.R;
 import com.efremov.weather.base.utils.NoInternetFragment;
+import com.efremov.weather.list.WeekListFragment;
 import com.efremov.weather.today.SingleCardFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
@@ -39,7 +40,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return SingleCardFragment.newInstance();
             case 1:
-                return NoInternetFragment.newInstance();
+                return WeekListFragment.newInstance();
             default:
                 return null;
         }

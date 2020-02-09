@@ -7,16 +7,21 @@ import android.location.Location;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableDouble;
 import androidx.databinding.ObservableField;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.efremov.weather.BR;
 import com.efremov.weather.R;
 import com.efremov.weather.base.model.api.IWeatherRepo;
 import com.efremov.weather.base.model.api.WeatherRepo;
 import com.efremov.weather.base.model.app.App;
 import com.efremov.weather.base.model.binding.BindingAdapters;
+import com.efremov.weather.base.model.binding.RecyclerBindingAdapter;
 import com.efremov.weather.base.model.entities.Weather;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
