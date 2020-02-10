@@ -67,6 +67,7 @@ public class RecyclerBindingAdapter extends RecyclerView.Adapter<RecyclerBinding
         }
 
         void bind(WeekListFragmentVM viewModel, Integer position) {
+            viewModel.getForecastAt(position);
             binding.setVariable(com.efremov.weather.BR.viewModel, viewModel);
             binding.setVariable(BR.position, position);
             binding.executePendingBindings();
