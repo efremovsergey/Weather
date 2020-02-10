@@ -2,6 +2,8 @@ package com.efremov.weather.list;
 
 import android.location.Location;
 
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -28,6 +30,10 @@ public class WeekListFragmentVM extends FragmentViewModel<WeekListFragment> {
 
     private static final int LAYOUT_HOLDER = R.layout.recycler_view_item;
 
+    public final ObservableBoolean isLoading = new ObservableBoolean();
+    public final ObservableBoolean isError = new ObservableBoolean();
+    public final ObservableField<String> errorText = new ObservableField<>();
+
     public WeekListFragmentVM(WeekListFragment fragment) {
         super(fragment);
         weatherRepo = new WeatherRepo();
@@ -49,10 +55,17 @@ public class WeekListFragmentVM extends FragmentViewModel<WeekListFragment> {
     }
 
     private void onWeatherLoaded(Weather weather) {
-        forecasts = weather.getForecasts();
-        forecastsMutable.setValue(forecasts);
+        isLoading.set(true);
+        if (weather != null) {
+            isError.set(false);
+            forecasts = weather.getForecasts();
+            forecastsMutable.setValue(forecasts);
+        } else {
+            isError.set(true);
+            errorText.set("И ТУТ ОШИБКА");
+            //TODO: print error
+        }
     }
-
 
     public RecyclerBindingAdapter getAdapter() {
         return adapter;

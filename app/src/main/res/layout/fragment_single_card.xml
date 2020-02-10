@@ -4,12 +4,14 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <import type="com.efremov.weather.R" />
 
         <variable
             name="url"
-            type="java.lang.String"/>
+            type="java.lang.String" />
 
         <variable
             name="singleCardViewModel"
@@ -38,6 +40,7 @@
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="12dp"
                 android:visibility="visible"
+                app:cardCornerRadius="10dp"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -276,23 +279,29 @@
 
                     </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="@{singleCardViewModel.isLoading ? View.GONE : View.VISIBLE}">
-
                     <include
-                        android:id="@+id/loading_view"
-                        layout="@layout/loading_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        layout="@layout/error_view"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:visibility="@{singleCardViewModel.isError ? View.VISIBLE : View.GONE}"
+                        app:errorText="@{singleCardViewModel.errorText}"
+                        app:layout_constraintBottom_toTopOf="@+id/view"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include
+                    android:id="@+id/loading_view"
+                    layout="@layout/loading_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{singleCardViewModel.isLoading ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.cardview.widget.CardView>
 

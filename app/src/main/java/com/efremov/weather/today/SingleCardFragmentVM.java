@@ -5,23 +5,15 @@ import android.location.Geocoder;
 import android.location.Location;
 
 import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableDouble;
 import androidx.databinding.ObservableField;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.efremov.weather.BR;
-import com.efremov.weather.R;
 import com.efremov.weather.base.model.api.IWeatherRepo;
 import com.efremov.weather.base.model.api.WeatherRepo;
 import com.efremov.weather.base.model.app.App;
-import com.efremov.weather.base.model.binding.BindingAdapters;
-import com.efremov.weather.base.model.binding.RecyclerBindingAdapter;
 import com.efremov.weather.base.model.entities.Weather;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,6 +22,7 @@ public class SingleCardFragmentVM extends FragmentViewModel<SingleCardFragment> 
     private IWeatherRepo weatherRepo;
 
     public final ObservableBoolean isLoading = new ObservableBoolean();
+    public final ObservableBoolean isError = new ObservableBoolean();
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> city = new ObservableField<>();
     public final ObservableField<String> latlon = new ObservableField<>();
@@ -37,6 +30,7 @@ public class SingleCardFragmentVM extends FragmentViewModel<SingleCardFragment> 
     public final ObservableField<String> windSpeed = new ObservableField();
     public final ObservableField<String> windDirection = new ObservableField<>();
     public final ObservableField<String> url = new ObservableField<>();
+    public final ObservableField<String> errorText = new ObservableField<>();
     public final ObservableField<String> field = new ObservableField<String>() {
         @Override
         public String get() {
@@ -71,15 +65,18 @@ public class SingleCardFragmentVM extends FragmentViewModel<SingleCardFragment> 
     }
 
     private void onWeatherLoaded(Weather weather) {
+        //TODO: change to false
         isLoading.set(true);
         if (weather != null) {
+            isError.set(false);
             name.set("Успешно");
             url.set(weather.getFact().getIcon());
             temp.set(String.valueOf(weather.getFact().getTemp()));
             windSpeed.set(String.valueOf(weather.getFact().getWind_speed()));
             windDirection.set(weather.getFact().getWind_dir());
         } else {
-            name.set("Ошибка");
+            isError.set(true);
+            errorText.set("ВООООТ ТАКАЯ ОШИБКА");
         }
     }
 

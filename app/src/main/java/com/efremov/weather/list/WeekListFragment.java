@@ -8,13 +8,14 @@ import androidx.lifecycle.Observer;
 import com.efremov.weather.R;
 import com.efremov.weather.BR;
 import com.efremov.weather.base.model.entities.Forecasts;
+import com.efremov.weather.base.utils.BaseFragment;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.BindingFragment;
 import com.efremov.weather.databinding.FragmentWeekListBinding;
 
 import java.util.List;
 
 
-public class WeekListFragment extends BindingFragment<WeekListFragmentVM, FragmentWeekListBinding> {
+public class WeekListFragment extends BaseFragment<WeekListFragmentVM, FragmentWeekListBinding> {
 
     public WeekListFragment() {
         // Required empty public constructor
