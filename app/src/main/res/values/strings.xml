@@ -5,5 +5,13 @@
     <string name="tab_text_1">Сегодня</string>
     <string name="tab_text_2">Неделя</string>
     <string name="no_internet">Нет Интернет-соединения! Невозможно получить данные из кэша!</string>
+    <string name="default_city">Москва</string>
+    <string name="yandex_api_key">c1cff6b8-21e5-44b8-8003-753e6f737ef6</string>
+    <string name="currentTempInfo">Текущая погода (C)</string>
+    <string name="currentWindHint">Ветер (м/с)</string>
+    <string name="savedInPrefs">Сохранено в кеше</string>
+    <string name="cityHint">Город</string>
+    <string name="locationHint">Координаты</string>
+    <string name="refresh">Обновить</string>
 
 </resources>

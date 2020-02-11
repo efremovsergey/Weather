@@ -1,4 +1,4 @@
-package com.efremov.weather.base.utils;
+package com.efremov.weather.base.utils.activity;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -10,21 +10,15 @@ import android.os.Build;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LifecycleRegistry;
 
-import com.efremov.weather.BR;
-import com.efremov.weather.R;
-import com.efremov.weather.base.model.live_data.LiveDataBus;
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel;
 import com.stfalcon.androidmvvmhelper.mvvm.activities.BindingActivity;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 
 public abstract class BaseActivity<B extends ViewDataBinding, VM extends ActivityViewModel> extends BindingActivity<B, VM> {
 
     private LifecycleRegistry mRegistry = new LifecycleRegistry(this);
-    NoInternetFragment noInternetFragment;
 
     @NotNull
     @Override
@@ -38,30 +32,23 @@ public abstract class BaseActivity<B extends ViewDataBinding, VM extends Activit
     @Override
     protected void onStart() {
         super.onStart();
-        LiveDataBus.subscribe(LiveDataBus.SUBJECT_DATA_LOADED, this, (data) -> {
-            if (noInternetFragment != null) {
-                getSupportFragmentManager().beginTransaction().remove(noInternetFragment).commit();
-                noInternetFragment = null;
-                shouldHideContent();
-            }
-        });
     }
 
-    public boolean shouldHideContent() {
-        if (!isNetworkConnected()) {
-            if (noInternetFragment == null) {
-                noInternetFragment = new NoInternetFragment();
-            }
-
-//            if (getSupportFragmentManager().findFragmentById(android.R.id.content)==null) {
-                getSupportFragmentManager().beginTransaction()
-                        .add(android.R.id.content, noInternetFragment)
-                        .commit();
+//    public boolean shouldHideContent() {
+//        if (!isNetworkConnected()) {
+//            if (noInternetFragment == null) {
+//                noInternetFragment = new NoInternetFragment();
 //            }
-            return true;
-        }
-        return false;
-    }
+//
+////            if (getSupportFragmentManager().findFragmentById(android.R.id.content)==null) {
+//                getSupportFragmentManager().beginTransaction()
+//                        .add(android.R.id.content, noInternetFragment)
+//                        .commit();
+////            }
+//            return true;
+//        }
+//        return false;
+//    }
 
     public boolean isNetworkConnected() {
         final ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);

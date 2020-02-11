@@ -5,14 +5,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmadrosid.svgloader.SvgLoader;
 import com.efremov.weather.R;
-import com.efremov.weather.base.model.app.App;
-import com.efremov.weather.main.MainActivity;
 
 public class BindingAdapters {
     private BindingAdapters() {
@@ -31,9 +28,13 @@ public class BindingAdapters {
 
     @BindingAdapter("setAdapter")
     public static void bindRecyclerViewAdapter(RecyclerView recyclerView, RecyclerView.Adapter<?> adapter) {
-//        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    @BindingAdapter("app:onClick")
+    public static void bindOnClick(View view, final Runnable runnable) {
+        view.setOnClickListener(v -> runnable.run());
     }
 }

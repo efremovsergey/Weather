@@ -1,9 +1,12 @@
 package com.efremov.weather.splash;
 
+import android.content.Intent;
+import android.location.Location;
+
 import com.efremov.weather.R;
-import com.efremov.weather.base.utils.BaseActivity;
+import com.efremov.weather.base.utils.activity.BaseActivity;
 import com.efremov.weather.databinding.ActivitySplashBinding;
-import com.stfalcon.androidmvvmhelper.mvvm.activities.BindingActivity;
+import com.efremov.weather.main.MainActivity;
 
 public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashViewModel> {
 
@@ -25,5 +28,10 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    public void navigate() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

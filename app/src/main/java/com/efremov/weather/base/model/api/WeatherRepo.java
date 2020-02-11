@@ -2,6 +2,7 @@ package com.efremov.weather.base.model.api;
 
 import android.location.Location;
 
+import com.efremov.weather.R;
 import com.efremov.weather.base.model.app.App;
 import com.efremov.weather.base.model.entities.Weather;
 
@@ -13,27 +14,29 @@ import retrofit2.Response;
 
 public class WeatherRepo implements IWeatherRepo {
     @Override
-    public void getWeather(Loader<Weather> loader, int limit, double lat, double lon) {
+    public void getWeather(Loader<Weather> loader, int limit, Location location) {
         ServerApi serverApi = App.getInstance().getRetrofit().create(ServerApi.class);
 
-        //TODO: api key to strings
         Call<Weather> weather = serverApi.getWeather(
-                lat, lon, 1, "c1cff6b8-21e5-44b8-8003-753e6f737ef6"
+                location.getLatitude(),
+                location.getLongitude(),
+                1,
+                App.getInstance().getString(R.string.yandex_api_key)
         );
 
         weather.enqueue(new Callback<Weather>() {
             @Override
             public void onResponse(@NotNull Call<Weather> call, @NotNull Response<Weather> response) {
                 if (response.isSuccessful()) {
-                    loader.onLoaded(response.body());
+                    loader.onLoaded(response.body(), null);
                 } else {
-                    loader.onLoaded(null);
+                    loader.onLoaded(null, response.message());
                 }
             }
 
             @Override
             public void onFailure(@NotNull Call<Weather> call, @NotNull Throwable t) {
-                loader.onLoaded(null);
+                loader.onLoaded(null, t.getLocalizedMessage());
             }
         });
     }

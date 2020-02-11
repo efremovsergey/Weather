@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -22,7 +21,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray">
+        android:background="@color/colorBackground">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -87,7 +86,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        android:text="Текущая погода (C)"
+                        android:text="@string/currentTempInfo"
                         android:textColor="@android:color/background_dark"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/textView"
@@ -101,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:text="Ветер (м/с)"
+                        android:text="@string/currentWindHint"
                         android:textColor="@android:color/background_dark"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toStartOf="@+id/textView"
@@ -147,7 +146,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="Сохранено в кеше"
+                        android:text="@string/savedInPrefs"
                         android:textAlignment="center"
                         android:textColor="@android:color/background_dark"
                         android:textSize="12sp"
@@ -208,7 +207,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="8dp"
                                 android:layout_weight="1"
-                                android:text="Город"
+                                android:text="@string/cityHint"
                                 android:textColor="@android:color/background_dark"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/textView"
@@ -225,7 +224,7 @@
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
                                 android:text="@{singleCardViewModel.city}"
-                                android:textAlignment="center"
+                                android:textAlignment="viewEnd"
                                 android:textColor="@android:color/background_dark"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
@@ -250,7 +249,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="8dp"
                                 android:layout_weight="1"
-                                android:text="Координтаты"
+                                android:text="@string/locationHint"
                                 android:textColor="@android:color/background_dark"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/textView"
@@ -267,7 +266,7 @@
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
                                 android:text="@{singleCardViewModel.latlon}"
-                                android:textAlignment="center"
+                                android:textAlignment="viewEnd"
                                 android:textColor="@android:color/background_dark"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
@@ -280,11 +279,11 @@
                     </LinearLayout>
 
                     <include
-                        layout="@layout/error_view"
+                        layout="@layout/layout_error"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:visibility="@{singleCardViewModel.isError ? View.VISIBLE : View.GONE}"
-                        app:errorText="@{singleCardViewModel.errorText}"
+                        app:errorText="@{singleCardViewModel.errorDescription}"
                         app:layout_constraintBottom_toTopOf="@+id/view"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -294,10 +293,10 @@
 
                 <include
                     android:id="@+id/loading_view"
-                    layout="@layout/loading_view"
+                    layout="@layout/layout_loading"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="@{singleCardViewModel.isLoading ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{singleCardViewModel.isLoading ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

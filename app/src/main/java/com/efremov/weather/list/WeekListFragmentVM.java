@@ -1,28 +1,16 @@
 package com.efremov.weather.list;
 
-import android.location.Location;
-
-import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.efremov.weather.R;
-import com.efremov.weather.base.model.api.IWeatherRepo;
-import com.efremov.weather.base.model.api.WeatherRepo;
-import com.efremov.weather.base.model.app.App;
 import com.efremov.weather.base.model.binding.RecyclerBindingAdapter;
-import com.efremov.weather.base.model.entities.Fact;
 import com.efremov.weather.base.model.entities.Forecasts;
 import com.efremov.weather.base.model.entities.Weather;
-import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
+import com.efremov.weather.base.utils.fragment.BaseFragmentVM;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class WeekListFragmentVM extends FragmentViewModel<WeekListFragment> {
-
-    private IWeatherRepo weatherRepo;
+public class WeekListFragmentVM extends BaseFragmentVM<WeekListFragment> {
 
     private MutableLiveData<List<Forecasts>> forecastsMutable;
     private List<Forecasts> forecasts;
@@ -30,41 +18,23 @@ public class WeekListFragmentVM extends FragmentViewModel<WeekListFragment> {
 
     private static final int LAYOUT_HOLDER = R.layout.recycler_view_item;
 
-    public final ObservableBoolean isLoading = new ObservableBoolean();
-    public final ObservableBoolean isError = new ObservableBoolean();
-    public final ObservableField<String> errorText = new ObservableField<>();
-
     public WeekListFragmentVM(WeekListFragment fragment) {
         super(fragment);
-        weatherRepo = new WeatherRepo();
         adapter = new RecyclerBindingAdapter(LAYOUT_HOLDER, this);
     }
 
     @Override
     public void onViewCreated() {
         super.onViewCreated();
-        Location location = App.getInstance().getMyLocation();
-        double lat = location != null ? location.getLatitude() : 55.753960;
-        double lon = location != null ? location.getLongitude() : 37.620393;
-        //TODO: magic numbers to const
-        weatherRepo.getWeather(
-                this::onWeatherLoaded,
-                7,
-                lat,
-                lon);
+        loadWeather();
     }
 
-    private void onWeatherLoaded(Weather weather) {
-        isLoading.set(true);
-        if (weather != null) {
-            isError.set(false);
-            forecasts = weather.getForecasts();
-            forecastsMutable.setValue(forecasts);
-        } else {
-            isError.set(true);
-            errorText.set("И ТУТ ОШИБКА");
-            //TODO: print error
-        }
+    @Override
+    protected void onWeatherSuccessLoading(Weather weather) {
+        super.onWeatherSuccessLoading(weather);
+        forecasts = weather.getForecasts();
+//        forecastsMutable.setValue(forecasts);
+        setForecastInAdapter(forecasts);
     }
 
     public RecyclerBindingAdapter getAdapter() {
@@ -89,5 +59,4 @@ public class WeekListFragmentVM extends FragmentViewModel<WeekListFragment> {
         this.adapter.setForecasts(forecasts);
         this.adapter.notifyDataSetChanged();
     }
-
 }

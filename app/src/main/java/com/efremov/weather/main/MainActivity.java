@@ -1,17 +1,11 @@
 package com.efremov.weather.main;
 
-import androidx.lifecycle.LifecycleRegistry;
-import androidx.lifecycle.LifecycleRegistryOwner;
 import androidx.viewpager.widget.ViewPager;
 
-import com.efremov.weather.BR;
 import com.efremov.weather.R;
-import com.efremov.weather.base.utils.BaseActivity;
+import com.efremov.weather.base.utils.activity.BaseActivity;
 import com.efremov.weather.databinding.MainActivityBinding;
 import com.google.android.material.tabs.TabLayout;
-import com.stfalcon.androidmvvmhelper.mvvm.activities.BindingActivity;
-
-import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends BaseActivity<MainActivityBinding, PageViewModel> {
 
@@ -27,7 +21,6 @@ public class MainActivity extends BaseActivity<MainActivityBinding, PageViewMode
         viewPager.setAdapter(tabsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        shouldHideContent();
         return new PageViewModel(this);
     }
 

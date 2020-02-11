@@ -1,9 +1,8 @@
 package com.efremov.weather.today;
 
 import com.efremov.weather.R;
-import com.efremov.weather.base.utils.BaseFragment;
+import com.efremov.weather.base.utils.fragment.BaseFragment;
 import com.efremov.weather.databinding.FragmentSingleCardBinding;
-import com.stfalcon.androidmvvmhelper.mvvm.fragments.BindingFragment;
 
 public class SingleCardFragment extends BaseFragment<SingleCardFragmentVM, FragmentSingleCardBinding> {
 

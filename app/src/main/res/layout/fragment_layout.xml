@@ -1,12 +1,9 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
-            name="viewModel"
-            type="com.efremov.weather.splash.fragment.ConfigFragmentVM"/>
+            name="loadingState"
+            type="java.lang.String"/>
     </data>
 
     <LinearLayout
@@ -30,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="@{viewModel.loadingState, default=Загрузка}"
+        android:text="@{loadingState, default=Загрузка}"
         android:textAlignment="center"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp" />

@@ -1,23 +1,14 @@
 package com.efremov.weather.main;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
-import android.os.Build;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 
 import com.efremov.weather.R;
-import com.efremov.weather.base.utils.NoInternetFragment;
 import com.efremov.weather.list.WeekListFragment;
 import com.efremov.weather.today.SingleCardFragment;
 

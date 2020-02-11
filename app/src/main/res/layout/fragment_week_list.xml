@@ -17,7 +17,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray">
+        android:background="@color/colorBackground">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -34,11 +34,11 @@
             app:setAdapter="@{viewModel.getAdapter()}" />
 
         <include
-            layout="@layout/error_view"
+            layout="@layout/layout_error"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="@{viewModel.isError ? View.VISIBLE : View.GONE}"
-            app:errorText="@{viewModel.errorText}"
+            app:errorText="@{viewModel.errorDescription}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,10 +46,10 @@
 
         <include
             android:id="@+id/loading_view"
-            layout="@layout/loading_view"
+            layout="@layout/layout_loading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
