@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="02.02"
+                    android:text="@{viewModel.getHoursAt(position).date}"
                     android:textColor="@android:color/background_dark"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="14:00"
+                    android:text="@{viewModel.getHoursAt(position).getHour()}"
                     android:textColor="@android:color/background_dark"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -63,12 +63,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="5 м/c"
+                    android:text="@{viewModel.getHoursAt(position).getWindSpeedString()}"
                     android:textColor="@android:color/background_dark"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/textView12"
-                    app:layout_constraintStart_toEndOf="@+id/textView16"
                     app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
                 <TextView
@@ -77,33 +76,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="южный"
+                    android:text="@{viewModel.getHoursAt(position).wind_dir}"
+                    app:autoSizeTextType="uniform"
                     android:textColor="@android:color/background_dark"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                     app:layout_constraintEnd_toEndOf="@+id/textView12"
-                    app:layout_constraintStart_toEndOf="@+id/textView16"
                     app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginBottom="3dp"
-                    android:text=".."
-                    android:textColor="@android:color/background_dark"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView11"
-                    app:layout_constraintStart_toEndOf="@+id/textView11" />
 
                 <TextView
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:text="5"
+                    android:text="@{viewModel.getHoursAt(position).getTempString()}"
                     android:textColor="@color/colorAccent"
                     android:textSize="30sp"
                     android:textStyle="bold"
@@ -111,24 +98,12 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView5"
                     app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="10"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="30sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                    app:layout_constraintStart_toEndOf="@+id/textView14"
-                    app:layout_constraintTop_toTopOf="@+id/imageView5" />
-
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
                     android:layout_marginStart="8dp"
+                    android:src="@{viewModel.getHoursAt(position).getIcon()}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView13"

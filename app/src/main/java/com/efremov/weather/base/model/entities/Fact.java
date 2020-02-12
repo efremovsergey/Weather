@@ -36,8 +36,13 @@ public class Fact {
         put("c", "штиль");
     }};
 
+    private String hour;
+    private int hour_ts;
+
+    private String date;
+    private int date_ts;
+
     private double temp;
-    private double feels_like;
     private String icon;
     private String condition;
     private double wind_speed;
@@ -47,8 +52,8 @@ public class Fact {
         return temp;
     }
 
-    public double getFeels_like() {
-        return feels_like;
+    public String getTempString() {
+        return String.valueOf(temp);
     }
 
     public String getIcon() {
@@ -63,7 +68,32 @@ public class Fact {
         return wind_speed;
     }
 
+    public String getWindSpeedString() {
+        return wind_speed + " м/c";
+    }
+
     public String getWind_dir() {
         return windDirMap.get(wind_dir);
+    }
+
+    public String getHour() {
+        return (hour.length() == 1 ? "0" + hour : hour) + ":00";
+    }
+
+    public int getHour_ts() {
+        return hour_ts;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public int getDate_ts() {
+        return date_ts;
+    }
+
+    public void setDateParams(String date, int date_ts) {
+        this.date = date;
+        this.date_ts = date_ts;
     }
 }

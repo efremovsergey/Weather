@@ -24,7 +24,6 @@ public class WeekListFragment extends BaseFragment<WeekListFragmentVM, FragmentW
     @Override
     public void onStart() {
         super.onStart();
-        setupListUpdate();
     }
 
     @Override
@@ -35,13 +34,5 @@ public class WeekListFragment extends BaseFragment<WeekListFragmentVM, FragmentW
     @Override
     public int getLayoutId() {
         return R.layout.fragment_week_list;
-    }
-
-    private void setupListUpdate() {
-        getViewModel().getForecasts().observe(this, forecasts -> {
-            if (forecasts.size() != 0) {
-                getViewModel().setForecastInAdapter(forecasts);
-            }
-        });
     }
 }

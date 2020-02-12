@@ -1,19 +1,22 @@
 package com.efremov.weather.list;
 
+import android.os.Build;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.efremov.weather.R;
 import com.efremov.weather.base.model.binding.RecyclerBindingAdapter;
+import com.efremov.weather.base.model.entities.Fact;
 import com.efremov.weather.base.model.entities.Forecasts;
 import com.efremov.weather.base.model.entities.Weather;
 import com.efremov.weather.base.utils.fragment.BaseFragmentVM;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WeekListFragmentVM extends BaseFragmentVM<WeekListFragment> {
 
-    private MutableLiveData<List<Forecasts>> forecastsMutable;
-    private List<Forecasts> forecasts;
+    private List<Fact> hours;
     private RecyclerBindingAdapter adapter;
 
     private static final int LAYOUT_HOLDER = R.layout.recycler_view_item;
@@ -32,31 +35,35 @@ public class WeekListFragmentVM extends BaseFragmentVM<WeekListFragment> {
     @Override
     protected void onWeatherSuccessLoading(Weather weather) {
         super.onWeatherSuccessLoading(weather);
-        forecasts = weather.getForecasts();
-//        forecastsMutable.setValue(forecasts);
-        setForecastInAdapter(forecasts);
+        hours = getHoursListFromForecast(weather.getForecasts());
+        setHoursInAdapter(hours);
     }
 
     public RecyclerBindingAdapter getAdapter() {
         return adapter;
     }
 
-    public MutableLiveData<List<Forecasts>> getForecasts() {
-        if (forecastsMutable == null) {
-            forecastsMutable = new MutableLiveData<>();
-        }
-        return forecastsMutable;
-    }
-
-    public Forecasts getForecastAt(Integer index) {
-        if (forecasts.get(index) != null) {
-            return forecasts.get(index);
+    public Fact getHoursAt(Integer index) {
+        if (hours.get(index) != null) {
+            return hours.get(index);
         }
         return null;
     }
 
-    public void setForecastInAdapter(List<Forecasts> forecasts) {
-        this.adapter.setForecasts(forecasts);
+    private void setHoursInAdapter(List<Fact> hours) {
+        this.adapter.setForecasts(hours);
         this.adapter.notifyDataSetChanged();
+    }
+
+    private List<Fact> getHoursListFromForecast(List<Forecasts> forecasts) {
+        List<Fact> hours = new ArrayList<>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            forecasts.forEach(item -> hours.addAll(item.getHours()));
+        } else {
+            for (Forecasts forecast: forecasts) {
+                hours.addAll(forecast.getHours());
+            }
+        }
+        return hours;
     }
 }

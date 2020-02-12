@@ -36,7 +36,7 @@ public class PageViewModel extends ActivityViewModel<MainActivity> {
     @Override
     public void onStart() {
         super.onStart();
-        isNetworking.set(false);
+        isNetworking.set(true);
     }
 
     public void onRefreshClicked() {

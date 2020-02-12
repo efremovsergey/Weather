@@ -1,7 +1,6 @@
 package com.efremov.weather.base.model.binding;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
@@ -11,16 +10,17 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.efremov.weather.BR;
-import com.efremov.weather.base.model.entities.Forecasts;
-import com.efremov.weather.list.WeekListFragment;
+import com.efremov.weather.base.model.entities.Fact;
 import com.efremov.weather.list.WeekListFragmentVM;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class RecyclerBindingAdapter extends RecyclerView.Adapter<RecyclerBindingAdapter.GenericViewHolder> {
 
     private int layoutId;
-    private List<Forecasts> forecasts;
+    private List<Fact> factList;
     private WeekListFragmentVM viewModel;
 
     public RecyclerBindingAdapter(@LayoutRes int layoutId, WeekListFragmentVM viewModel) {
@@ -34,9 +34,10 @@ public class RecyclerBindingAdapter extends RecyclerView.Adapter<RecyclerBinding
 
     @Override
     public int getItemCount() {
-        return forecasts == null ? 0 : forecasts.size();
+        return factList == null ? 0 : factList.size();
     }
 
+    @NotNull
     public GenericViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ViewDataBinding binding = DataBindingUtil.inflate(layoutInflater, viewType, parent, false);
@@ -54,8 +55,9 @@ public class RecyclerBindingAdapter extends RecyclerView.Adapter<RecyclerBinding
         return getLayoutIdForPosition(position);
     }
 
-    public void setForecasts(List<Forecasts> forecasts) {
-        this.forecasts = forecasts;
+    //TODO: rem
+    public void setForecasts(List<Fact> forecasts) {
+        this.factList = forecasts;
     }
 
     class GenericViewHolder extends RecyclerView.ViewHolder {
@@ -67,7 +69,7 @@ public class RecyclerBindingAdapter extends RecyclerView.Adapter<RecyclerBinding
         }
 
         void bind(WeekListFragmentVM viewModel, Integer position) {
-            viewModel.getForecastAt(position);
+            viewModel.getHoursAt(position);
             binding.setVariable(com.efremov.weather.BR.viewModel, viewModel);
             binding.setVariable(BR.position, position);
             binding.executePendingBindings();
