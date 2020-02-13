@@ -2,8 +2,6 @@ package com.efremov.weather.list;
 
 import android.os.Build;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.efremov.weather.R;
 import com.efremov.weather.base.model.binding.RecyclerBindingAdapter;
 import com.efremov.weather.base.model.entities.Fact;

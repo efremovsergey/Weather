@@ -6,6 +6,7 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Bundle;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.LiveData;
@@ -36,7 +37,9 @@ public class PageViewModel extends ActivityViewModel<MainActivity> {
     @Override
     public void onStart() {
         super.onStart();
-        isNetworking.set(true);
+        boolean isNetworkAvailable = isNetworkConnected();
+        getActivity().isNetworkAvailable = isNetworkAvailable;
+        isNetworking.set(isNetworkAvailable);
     }
 
     public void onRefreshClicked() {

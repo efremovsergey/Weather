@@ -13,5 +13,9 @@
     <string name="cityHint">Город</string>
     <string name="locationHint">Координаты</string>
     <string name="refresh">Обновить</string>
+    <string name="exit_title">Выйти из приложения</string>
+    <string name="exit_message">Вы точно хотите выйти из приложения?</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
 
 </resources>

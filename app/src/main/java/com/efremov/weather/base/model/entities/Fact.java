@@ -1,5 +1,7 @@
 package com.efremov.weather.base.model.entities;
 
+import androidx.annotation.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +39,7 @@ public class Fact {
     }};
 
     private String hour;
-    private int hour_ts;
+    private Integer hour_ts;
 
     private String date;
     private int date_ts;
@@ -80,7 +82,7 @@ public class Fact {
         return (hour.length() == 1 ? "0" + hour : hour) + ":00";
     }
 
-    public int getHour_ts() {
+    public Integer getHour_ts() {
         return hour_ts;
     }
 

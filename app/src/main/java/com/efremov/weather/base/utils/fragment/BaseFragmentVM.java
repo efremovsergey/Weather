@@ -10,10 +10,14 @@ import com.efremov.weather.R;
 import com.efremov.weather.base.model.api.IWeatherRepo;
 import com.efremov.weather.base.model.api.WeatherRepo;
 import com.efremov.weather.base.model.app.App;
+import com.efremov.weather.base.model.entities.Fact;
+import com.efremov.weather.base.model.entities.Forecasts;
 import com.efremov.weather.base.model.entities.Weather;
+import com.efremov.weather.main.MainActivity;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,6 +27,7 @@ public class BaseFragmentVM<T extends BaseFragment> extends FragmentViewModel<T>
     private Location location;
 
     public final ObservableBoolean isLoading = new ObservableBoolean();
+    public final ObservableBoolean isRefreshing = new ObservableBoolean();
     public final ObservableBoolean isError = new ObservableBoolean();
     public final ObservableField<String> errorDescription = new ObservableField();
 
@@ -38,26 +43,49 @@ public class BaseFragmentVM<T extends BaseFragment> extends FragmentViewModel<T>
     }
 
     protected void loadWeather() {
-        isLoading.set(true);
-        weatherRepo.getWeather(
-                this::onWeatherLoaded,
-                7,
-                location);
+        MainActivity mainActivity = (MainActivity) getActivity();
+        assert mainActivity != null;
+        if (!mainActivity.isNetworkAvailable) {
+            Fact todayWeather = App.getInstance().getTodayWeather();
+            List<Fact> listWeather = App.getInstance().getWeatherList();
+
+            if (todayWeather != null && listWeather != null) {
+                onWeatherCacheLoading(todayWeather);
+                onWeatherListCacheLoading(listWeather);
+            } else {
+                onWeatherLoaded(null, "Ошибка чтения данных из кэша!");
+            }
+        } else {
+            isLoading.set(true);
+            weatherRepo.getWeather(
+                    this::onWeatherLoaded,
+                    7,
+                    location);
+        }
     }
 
     private void onWeatherLoaded(Weather weather, String error) {
         isLoading.set(false);
+        isRefreshing.set(false);
         isError.set(error != null);
         if (error != null) {
             errorDescription.set(error);
         } else {
+            App.getInstance().setTodayWeather(weather.getFact());
+            List<Fact> weatherList = new ArrayList<>();
+            for (Forecasts forecast: weather.getForecasts()) {
+                weatherList.addAll(forecast.getHours());
+            }
+            App.getInstance().setWeatherList(weatherList);
             onWeatherSuccessLoading(weather);
         }
     }
 
-    protected void onWeatherSuccessLoading(Weather weather) {
+    protected void onWeatherSuccessLoading(Weather weather) {}
 
-    }
+    protected void onWeatherCacheLoading(Fact todayWeather) {}
+
+    protected void onWeatherListCacheLoading(List<Fact> listWeather) {}
 
     protected String getCityName(Location location) {
         if (location == null) {
@@ -81,5 +109,10 @@ public class BaseFragmentVM<T extends BaseFragment> extends FragmentViewModel<T>
 
     public Location getMyLocation() {
         return location;
+    }
+
+    public void onRefresh() {
+        isRefreshing.set(true);
+        loadWeather();
     }
 }

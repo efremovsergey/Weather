@@ -12,9 +12,10 @@ public class MainActivity extends BaseActivity<MainActivityBinding, PageViewMode
     public TabsPagerAdapter tabsPagerAdapter;
     public ViewPager viewPager;
 
+    public boolean isNetworkAvailable;
+
     @Override
     public PageViewModel onCreate() {
-//        setContentView(R.layout.main_activity);
         //TODO: оптимизировать методы
         tabsPagerAdapter = new TabsPagerAdapter(this, getSupportFragmentManager());
         viewPager = findViewById(R.id.view_pager);

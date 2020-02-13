@@ -3,6 +3,7 @@ package com.efremov.weather.base.model.app;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.efremov.weather.base.model.entities.Fact;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -31,9 +32,9 @@ public class Prefs {
         saveString(key, json);
     }
 
-    <T> List<T> loadList(String key) {
+    List<Fact> loadList(String key) {
         String json = loadSavedString(key);
-        Type type = new TypeToken<List<T>>() {}.getType();
+        Type type = new TypeToken<List<Fact>>() {}.getType();
         return gson.fromJson(json, type);
     }
 
@@ -42,9 +43,9 @@ public class Prefs {
         saveString(key, json);
     }
 
-    Object loadObject(String key) {
+    Fact loadFact(String key) {
         String json = loadSavedString(key);
-        return gson.fromJson(json, Object.class);
+        return gson.fromJson(json, Fact.class);
     }
 
     public void saveString(String key, String value) {
