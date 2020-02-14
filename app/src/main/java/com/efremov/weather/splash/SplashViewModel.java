@@ -1,4 +1,5 @@
 package com.efremov.weather.splash;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -6,7 +7,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Handler;
-import android.os.SystemClock;
 
 import androidx.databinding.ObservableField;
 
@@ -29,12 +29,7 @@ public class SplashViewModel extends ActivityViewModel<SplashActivity> {
     }
 
     private void loadSavedData() {
-        loadingState.set("Загружаем данные");
-        boolean result = App.getInstance().loadData();
-        if (!result) {
-            loadingState.set("Данных нет, либо они повреждены!");
-            SystemClock.sleep(500);
-        }
+        App.getInstance().loadData();
         Location location = getCurrentLocale();
         App.getInstance().setMyLocation(location);
         loadingState.set(location == null ?  getActivity().getResources().getString(R.string.cant_read_location) : getActivity().getResources().getString(R.string.read_location));

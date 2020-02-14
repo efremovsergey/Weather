@@ -5,6 +5,7 @@ import android.os.Handler;
 
 import androidx.databinding.ObservableField;
 
+import com.efremov.weather.base.model.entities.Fact;
 import com.efremov.weather.base.model.entities.Weather;
 import com.efremov.weather.base.utils.fragment.BaseFragmentVM;
 
@@ -13,11 +14,10 @@ public class SingleCardFragmentVM extends BaseFragmentVM<SingleCardFragment> {
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> city = new ObservableField<>();
     public final ObservableField<String> latlon = new ObservableField<>();
-    public final ObservableField<String> temp = new ObservableField();
-    public final ObservableField<String> windSpeed = new ObservableField();
+    public final ObservableField<String> temp = new ObservableField<String>();
+    public final ObservableField<String> windSpeed = new ObservableField<String>();
     public final ObservableField<String> windDirection = new ObservableField<>();
     public final ObservableField<String> url = new ObservableField<>();
-    public final ObservableField<String> errorText = new ObservableField<>();
 
     SingleCardFragmentVM(SingleCardFragment fragment) {
         super(fragment);
@@ -33,12 +33,23 @@ public class SingleCardFragmentVM extends BaseFragmentVM<SingleCardFragment> {
     @Override
     public void onWeatherSuccessLoading(Weather weather) {
         super.onWeatherSuccessLoading(weather);
-        isError.set(false);
         name.set("Данные актуальны");
-        url.set(weather.getFact().getIcon());
-        temp.set(String.valueOf(weather.getFact().getTemp()));
-        windSpeed.set(String.valueOf(weather.getFact().getWind_speed()));
-        windDirection.set(weather.getFact().getWind_dir());
+        displayWeatherInfo(weather.getFact());
+    }
+
+    @Override
+    protected void onWeatherCacheLoading(Fact todayWeather) {
+        super.onWeatherCacheLoading(todayWeather);
+        name.set("Данные устарели");
+        displayWeatherInfo(todayWeather);
+    }
+
+    private void displayWeatherInfo(Fact weather) {
+        isError.set(false);
+        url.set(weather.getIcon());
+        temp.set(String.valueOf(weather.getTemp()));
+        windSpeed.set(String.valueOf(weather.getWind_speed()));
+        windDirection.set(weather.getWind_dir());
     }
 
     private void displayLocationInfo() {

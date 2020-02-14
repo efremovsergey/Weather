@@ -6,13 +6,14 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.os.Bundle;
 
+import androidx.databinding.Bindable;
 import androidx.databinding.ObservableBoolean;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
+import androidx.viewpager.widget.PagerAdapter;
 
+import com.efremov.weather.BR;
+import com.efremov.weather.base.model.app.App;
+import com.efremov.weather.base.model.enums.WorkingStatus;
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel;
 
 public class PageViewModel extends ActivityViewModel<MainActivity> {
@@ -21,32 +22,44 @@ public class PageViewModel extends ActivityViewModel<MainActivity> {
         super(activity);
     }
 
+    TabsPagerAdapter adapter;
+
     public final ObservableBoolean isNetworking = new ObservableBoolean();
-
-    private MutableLiveData<String> mTitle = new MutableLiveData<>();
-    private LiveData<String> mText = Transformations.map(mTitle, input -> "Contact not available in " + input);
-
-    public void setIndex(String index) {
-        mTitle.setValue(index);
-    }
-
-    public LiveData<String> getText() {
-        return mText;
-    }
 
     @Override
     public void onStart() {
         super.onStart();
-        boolean isNetworkAvailable = isNetworkConnected();
-        getActivity().isNetworkAvailable = isNetworkAvailable;
-        isNetworking.set(isNetworkAvailable);
+        createViewPager();
+    }
+
+    @Bindable
+    public PagerAdapter getPagerAdapter() {
+        return adapter;
+    }
+
+    private void createViewPager() {
+        adapter = new TabsPagerAdapter(getActivity(), getActivity().getSupportFragmentManager());
+
+        notifyPropertyChanged(com.efremov.weather.BR.pagerAdapter);
     }
 
     public void onRefreshClicked() {
         isNetworking.set(true);
     }
 
-    public boolean isNetworkConnected() {
+    WorkingStatus setWorkingStatus() {
+        boolean isNetworkAvailable = isNetworkConnected();
+        if (!isNetworkAvailable) {
+            WorkingStatus workingStatus = App.getInstance().isCashed() ? WorkingStatus.CASHED : WorkingStatus.OFFLINE;
+            isNetworking.set(workingStatus != WorkingStatus.OFFLINE);
+            return workingStatus;
+        }
+
+        isNetworking.set(true);
+        return WorkingStatus.ONLINE;
+    }
+
+    private boolean isNetworkConnected() {
         final ConnectivityManager cm = (ConnectivityManager)getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (cm != null) {

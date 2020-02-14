@@ -2,7 +2,6 @@ package com.efremov.weather.base.model.app;
 
 import android.app.Application;
 import android.location.Location;
-import android.os.Build;
 
 import com.efremov.weather.base.model.entities.Fact;
 
@@ -18,6 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class App extends Application {
     private static App instance;
 
+    private static SimpleDateFormat FORMAT_BY_YYYY_MM_DD = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+    private static SimpleDateFormat FORMAT_BY_HH_MM = new SimpleDateFormat("HHmm", Locale.getDefault());
+
     public static synchronized App getInstance() {
         instance = instance == null ? new App() : instance;
         return instance;
@@ -28,6 +30,7 @@ public class App extends Application {
     private List<Fact> weatherList;
     private Fact todayWeather;
     private Location myLocation;
+    private boolean cashed = false;
 
     private Retrofit retrofit;
 
@@ -42,41 +45,37 @@ public class App extends Application {
                 .build();
     }
 
-    public boolean loadData() {
+    public void loadData() {
         weatherList = prefs.loadList(Prefs.APP_PREFERENCES_LIST_WEATHER);
+        if (weatherList == null) {
+            return;
+        }
+
         todayWeather = prefs.loadFact(Prefs.APP_PREFERENCES_TODAY_WEATHER);
 
         Date currentTime = Calendar.getInstance().getTime();
-
-        if (weatherList == null) {
-            return false;
+        if (todayWeather.getHour_ts() != null) {
+            Date weatherTime = new Date(todayWeather.getHour_ts());
+            if (todayWeather == null || todayWeather.getHour_ts() == null
+                    || !FORMAT_BY_YYYY_MM_DD.format(currentTime).equals(FORMAT_BY_YYYY_MM_DD.format(weatherTime))) {
+                actualizateDate(currentTime);
+            }
         }
 
-        if (todayWeather == null || todayWeather.getHour_ts() == null) {
-            actualizateDate(currentTime);
-            return (weatherList != null && todayWeather != null);
-        }
-        Date weatherTime = new Date((todayWeather.getHour_ts()));
-        SimpleDateFormat formatByYearMonthDay = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-        if (!formatByYearMonthDay.format(currentTime).equals(formatByYearMonthDay.format(weatherTime))) {
-            actualizateDate(currentTime);
-        }
-
-        return (weatherList != null && todayWeather != null);
+        cashed = weatherList != null && todayWeather != null;
     }
 
     private void actualizateDate(Date currentTime) {
+        List<Fact> actualizatedWeatherList = weatherList;
         for (Fact item : weatherList) {
-            checkDate(item, currentTime);
+            Date itemTime = new Date((item.getHour_ts()));
+            if (FORMAT_BY_HH_MM.format(currentTime).equals(FORMAT_BY_HH_MM.format(itemTime))) {
+                todayWeather = item;
+            } else if (currentTime.after(itemTime)) {
+                actualizatedWeatherList.remove(item);
+            }
         }
-    }
-
-    private void checkDate(Fact item, Date currentTime) {
-        SimpleDateFormat formatByHours = new SimpleDateFormat("HHmm", Locale.getDefault());
-        Date itemTime = new Date((item.getHour_ts()));
-        if (formatByHours.format(currentTime).equals(formatByHours.format(itemTime))) {
-            todayWeather = item;
-        }
+        weatherList = actualizatedWeatherList;
     }
 
     public List<Fact> getWeatherList() {
@@ -107,5 +106,9 @@ public class App extends Application {
 
     public void setMyLocation(Location myLocation) {
         this.myLocation = myLocation;
+    }
+
+    public boolean isCashed() {
+        return cashed;
     }
 }

@@ -45,22 +45,27 @@ public class BaseFragmentVM<T extends BaseFragment> extends FragmentViewModel<T>
     protected void loadWeather() {
         MainActivity mainActivity = (MainActivity) getActivity();
         assert mainActivity != null;
-        if (!mainActivity.isNetworkAvailable) {
-            Fact todayWeather = App.getInstance().getTodayWeather();
-            List<Fact> listWeather = App.getInstance().getWeatherList();
+        switch (mainActivity.getWeatherStatus()) {
+            case ONLINE:
+                isLoading.set(true);
+                weatherRepo.getWeather(
+                        this::onWeatherLoaded,
+                        7,
+                        location);
+                break;
+            case CASHED:
+                Fact todayWeather = App.getInstance().getTodayWeather();
+                List<Fact> listWeather = App.getInstance().getWeatherList();
 
-            if (todayWeather != null && listWeather != null) {
-                onWeatherCacheLoading(todayWeather);
-                onWeatherListCacheLoading(listWeather);
-            } else {
-                onWeatherLoaded(null, "Ошибка чтения данных из кэша!");
-            }
-        } else {
-            isLoading.set(true);
-            weatherRepo.getWeather(
-                    this::onWeatherLoaded,
-                    7,
-                    location);
+                if (todayWeather != null && listWeather != null) {
+                    onWeatherCacheLoading(todayWeather);
+                    onWeatherListCacheLoading(listWeather);
+                } else {
+                    onWeatherLoaded(null, "Ошибка чтения данных из кэша!");
+                }
+                break;
+            case OFFLINE:
+                break;
         }
     }
 
@@ -71,6 +76,7 @@ public class BaseFragmentVM<T extends BaseFragment> extends FragmentViewModel<T>
         if (error != null) {
             errorDescription.set(error);
         } else {
+            weather.getFact().setDateParams(weather.getNowDt(), weather.getNow());
             App.getInstance().setTodayWeather(weather.getFact());
             List<Fact> weatherList = new ArrayList<>();
             for (Forecasts forecast: weather.getForecasts()) {

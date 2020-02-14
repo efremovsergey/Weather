@@ -37,6 +37,13 @@ public class WeekListFragmentVM extends BaseFragmentVM<WeekListFragment> {
         setHoursInAdapter(hours);
     }
 
+    @Override
+    protected void onWeatherListCacheLoading(List<Fact> listWeather) {
+        super.onWeatherListCacheLoading(listWeather);
+        hours = listWeather;
+        setHoursInAdapter(listWeather);
+    }
+
     public RecyclerBindingAdapter getAdapter() {
         return adapter;
     }
