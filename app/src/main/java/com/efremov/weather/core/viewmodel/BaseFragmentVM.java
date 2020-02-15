@@ -1,4 +1,4 @@
-package com.efremov.weather.base.utils.fragment;
+package com.efremov.weather.core.viewmodel;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -7,12 +7,13 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
 import com.efremov.weather.R;
-import com.efremov.weather.base.model.api.IWeatherRepo;
-import com.efremov.weather.base.model.api.WeatherRepo;
-import com.efremov.weather.base.model.app.App;
-import com.efremov.weather.base.model.entities.Fact;
-import com.efremov.weather.base.model.entities.Forecasts;
-import com.efremov.weather.base.model.entities.Weather;
+import com.efremov.weather.core.view.BaseFragment;
+import com.efremov.weather.core.model.api.IWeatherRepo;
+import com.efremov.weather.core.model.api.WeatherRepo;
+import com.efremov.weather.core.model.app.App;
+import com.efremov.weather.core.model.entities.Fact;
+import com.efremov.weather.core.model.entities.Forecasts;
+import com.efremov.weather.core.model.entities.Weather;
 import com.efremov.weather.main.MainActivity;
 import com.stfalcon.androidmvvmhelper.mvvm.fragments.FragmentViewModel;
 
@@ -25,6 +26,8 @@ public class BaseFragmentVM<T extends BaseFragment> extends FragmentViewModel<T>
 
     private IWeatherRepo weatherRepo;
     private Location location;
+
+    public boolean isDataLoaded = false;
 
     public final ObservableBoolean isLoading = new ObservableBoolean();
     public final ObservableBoolean isRefreshing = new ObservableBoolean();
@@ -58,6 +61,8 @@ public class BaseFragmentVM<T extends BaseFragment> extends FragmentViewModel<T>
                 List<Fact> listWeather = App.getInstance().getWeatherList();
 
                 if (todayWeather != null && listWeather != null) {
+                    isLoading.set(false);
+                    isRefreshing.set(false);
                     onWeatherCacheLoading(todayWeather);
                     onWeatherListCacheLoading(listWeather);
                 } else {
@@ -83,13 +88,14 @@ public class BaseFragmentVM<T extends BaseFragment> extends FragmentViewModel<T>
                 weatherList.addAll(forecast.getHours());
             }
             App.getInstance().setWeatherList(weatherList);
+            isDataLoaded = true;
             onWeatherSuccessLoading(weather);
         }
     }
 
-    protected void onWeatherSuccessLoading(Weather weather) {}
+    protected void onWeatherSuccessLoading(Weather weather) { }
 
-    protected void onWeatherCacheLoading(Fact todayWeather) {}
+    protected void onWeatherCacheLoading(Fact todayWeather) { }
 
     protected void onWeatherListCacheLoading(List<Fact> listWeather) {}
 

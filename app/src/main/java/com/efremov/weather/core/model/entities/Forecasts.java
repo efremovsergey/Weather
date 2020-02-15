@@ -1,8 +1,6 @@
-package com.efremov.weather.base.model.entities;
+package com.efremov.weather.core.model.entities;
 
 import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import java.util.List;
 

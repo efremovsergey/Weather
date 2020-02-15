@@ -1,4 +1,4 @@
-package com.efremov.weather.base.model.binding;
+package com.efremov.weather.core.model.binding;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,7 +10,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.efremov.weather.BR;
-import com.efremov.weather.base.model.entities.Fact;
+import com.efremov.weather.core.model.entities.Fact;
 import com.efremov.weather.list.WeekListFragmentVM;
 
 import org.jetbrains.annotations.NotNull;

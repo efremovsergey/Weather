@@ -1,4 +1,4 @@
-package com.efremov.weather.base.utils.activity;
+package com.efremov.weather.core.view;
 
 import android.app.AlertDialog;
 import android.os.Process;

@@ -41,17 +41,6 @@
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:srcCompat="@drawable/ic_signal_cellular_connected_no_internet_0_bar_black_24dp" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:onClick="@{()-> mainViewModel.onRefreshClicked()}"
-            android:text="@string/refresh"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView9"
-            app:layout_constraintStart_toStartOf="@+id/textView9" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

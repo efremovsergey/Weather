@@ -1,4 +1,4 @@
-package com.efremov.weather.base.model.entities;
+package com.efremov.weather.core.model.entities;
 
 import java.util.List;
 

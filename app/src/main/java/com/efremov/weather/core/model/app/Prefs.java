@@ -1,9 +1,9 @@
-package com.efremov.weather.base.model.app;
+package com.efremov.weather.core.model.app;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.efremov.weather.base.model.entities.Fact;
+import com.efremov.weather.core.model.entities.Fact;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

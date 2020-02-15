@@ -1,8 +1,6 @@
-package com.efremov.weather.base.model.api;
+package com.efremov.weather.core.model.api;
 
-import com.efremov.weather.base.model.entities.Weather;
-
-import java.util.List;
+import com.efremov.weather.core.model.entities.Weather;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

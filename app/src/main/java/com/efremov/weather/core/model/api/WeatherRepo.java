@@ -1,10 +1,10 @@
-package com.efremov.weather.base.model.api;
+package com.efremov.weather.core.model.api;
 
 import android.location.Location;
 
 import com.efremov.weather.R;
-import com.efremov.weather.base.model.app.App;
-import com.efremov.weather.base.model.entities.Weather;
+import com.efremov.weather.core.model.app.App;
+import com.efremov.weather.core.model.entities.Weather;
 
 import org.jetbrains.annotations.NotNull;
 

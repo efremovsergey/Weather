@@ -1,16 +1,13 @@
-package com.efremov.weather.base.model.binding;
+package com.efremov.weather.core.model.binding;
 
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.ahmadrosid.svgloader.SvgLoader;

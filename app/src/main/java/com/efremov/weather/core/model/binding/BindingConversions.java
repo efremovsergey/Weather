@@ -1,4 +1,4 @@
-package com.efremov.weather.base.model.binding;
+package com.efremov.weather.core.model.binding;
 
 import android.view.View;
 

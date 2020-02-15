@@ -2,7 +2,7 @@ package com.efremov.weather.list;
 
 import com.efremov.weather.R;
 import com.efremov.weather.BR;
-import com.efremov.weather.base.utils.fragment.BaseFragment;
+import com.efremov.weather.core.view.BaseFragment;
 import com.efremov.weather.databinding.FragmentWeekListBinding;
 
 

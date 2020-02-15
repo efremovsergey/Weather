@@ -3,11 +3,11 @@ package com.efremov.weather.list;
 import android.os.Build;
 
 import com.efremov.weather.R;
-import com.efremov.weather.base.model.binding.RecyclerBindingAdapter;
-import com.efremov.weather.base.model.entities.Fact;
-import com.efremov.weather.base.model.entities.Forecasts;
-import com.efremov.weather.base.model.entities.Weather;
-import com.efremov.weather.base.utils.fragment.BaseFragmentVM;
+import com.efremov.weather.core.model.binding.RecyclerBindingAdapter;
+import com.efremov.weather.core.model.entities.Fact;
+import com.efremov.weather.core.model.entities.Forecasts;
+import com.efremov.weather.core.model.entities.Weather;
+import com.efremov.weather.core.viewmodel.BaseFragmentVM;
 
 import java.util.ArrayList;
 import java.util.List;

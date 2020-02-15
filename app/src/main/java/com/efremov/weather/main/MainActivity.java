@@ -1,8 +1,8 @@
 package com.efremov.weather.main;
 
 import com.efremov.weather.R;
-import com.efremov.weather.base.model.enums.WorkingStatus;
-import com.efremov.weather.base.utils.activity.BaseActivity;
+import com.efremov.weather.core.model.enums.WorkingStatus;
+import com.efremov.weather.core.view.BaseActivity;
 import com.efremov.weather.databinding.MainActivityBinding;
 
 public class MainActivity extends BaseActivity<MainActivityBinding, PageViewModel> {
@@ -28,6 +28,6 @@ public class MainActivity extends BaseActivity<MainActivityBinding, PageViewMode
     }
 
     public WorkingStatus getWeatherStatus() {
-        return getViewModel().setWorkingStatus();
+        return getViewModel().getWorkingStatus();
     }
 }

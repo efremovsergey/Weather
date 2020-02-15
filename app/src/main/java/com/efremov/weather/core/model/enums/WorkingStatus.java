@@ -1,4 +1,4 @@
-package com.efremov.weather.base.model.enums;
+package com.efremov.weather.core.model.enums;
 
 public enum WorkingStatus {
     ONLINE,

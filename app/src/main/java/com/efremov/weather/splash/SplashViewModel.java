@@ -1,17 +1,17 @@
 package com.efremov.weather.splash;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
-import android.os.Handler;
 
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.ObservableField;
 
 import com.efremov.weather.R;
-import com.efremov.weather.base.model.app.App;
+import com.efremov.weather.core.model.PermissionRequester;
+import com.efremov.weather.core.model.app.App;
 import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel;
 
 public class SplashViewModel extends ActivityViewModel<SplashActivity> {
@@ -21,29 +21,35 @@ public class SplashViewModel extends ActivityViewModel<SplashActivity> {
     }
 
     public final ObservableField<String> loadingState = new ObservableField<>();
+    private Location myLocation;
 
     @Override
     public void onStart() {
         super.onStart();
-        new Handler().postDelayed(this::loadSavedData, 1000);
-    }
-
-    private void loadSavedData() {
         App.getInstance().loadData();
-        Location location = getCurrentLocale();
-        App.getInstance().setMyLocation(location);
-        loadingState.set(location == null ?  getActivity().getResources().getString(R.string.cant_read_location) : getActivity().getResources().getString(R.string.read_location));
-        getActivity().navigate();
+        permissionCheck();
     }
 
-    private Location getCurrentLocale() {
-        LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return null;
+    private void permissionCheck() {
+        PermissionRequester.getInstance().requestPermission(new PermissionRequester.OnResultListener() {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onPermissionGranted() {
+                LocationManager lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+                myLocation = lm != null ? lm.getLastKnownLocation(LocationManager.GPS_PROVIDER) : null;
+                loadingState.set(getStringByResource(myLocation != null ? R.string.read_location : R.string.cant_read_location));
+                getActivity().navigate();
             }
-        }
-        return lm != null ? lm.getLastKnownLocation(LocationManager.GPS_PROVIDER) : null;
+
+            @Override
+            public void onPermissionDenied() {
+                loadingState.set(getStringByResource(R.string.cant_read_location));
+                getActivity().navigate();
+            }
+        }, Manifest.permission.ACCESS_FINE_LOCATION);
+    }
+
+    private String getStringByResource(int id) {
+        return getActivity().getResources().getString(id);
     }
 }

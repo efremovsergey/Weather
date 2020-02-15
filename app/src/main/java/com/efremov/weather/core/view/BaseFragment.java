@@ -1,4 +1,4 @@
-package com.efremov.weather.base.utils.fragment;
+package com.efremov.weather.core.view;
 
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LifecycleRegistry;

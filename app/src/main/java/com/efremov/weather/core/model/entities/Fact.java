@@ -1,6 +1,4 @@
-package com.efremov.weather.base.model.entities;
-
-import androidx.annotation.Nullable;
+package com.efremov.weather.core.model.entities;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +40,7 @@ public class Fact {
     private Integer hour_ts;
 
     private String date;
-    private int date_ts;
+    private Integer date_ts;
 
     private double temp;
     private String icon;
@@ -90,7 +88,7 @@ public class Fact {
         return date;
     }
 
-    public int getDate_ts() {
+    public Integer getDate_ts() {
         return date_ts;
     }
 

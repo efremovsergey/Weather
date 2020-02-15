@@ -5,15 +5,19 @@ import android.os.Handler;
 
 import androidx.databinding.ObservableField;
 
-import com.efremov.weather.base.model.entities.Fact;
-import com.efremov.weather.base.model.entities.Weather;
-import com.efremov.weather.base.utils.fragment.BaseFragmentVM;
+import com.efremov.weather.core.model.entities.Fact;
+import com.efremov.weather.core.model.entities.Weather;
+import com.efremov.weather.core.viewmodel.BaseFragmentVM;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Objects;
 
 public class SingleCardFragmentVM extends BaseFragmentVM<SingleCardFragment> {
 
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> city = new ObservableField<>();
     public final ObservableField<String> latlon = new ObservableField<>();
+    public final ObservableField<String> shouldReload = new ObservableField<>();
     public final ObservableField<String> temp = new ObservableField<String>();
     public final ObservableField<String> windSpeed = new ObservableField<String>();
     public final ObservableField<String> windDirection = new ObservableField<>();
@@ -33,15 +37,20 @@ public class SingleCardFragmentVM extends BaseFragmentVM<SingleCardFragment> {
     @Override
     public void onWeatherSuccessLoading(Weather weather) {
         super.onWeatherSuccessLoading(weather);
-        name.set("Данные актуальны");
+        displayMainData();
         displayWeatherInfo(weather.getFact());
     }
 
     @Override
     protected void onWeatherCacheLoading(Fact todayWeather) {
         super.onWeatherCacheLoading(todayWeather);
-        name.set("Данные устарели");
+        displayMainData();
         displayWeatherInfo(todayWeather);
+    }
+
+    private void displayMainData() {
+        name.set("Данные " + (!isDataLoaded ? "устарели" : "актуальны"));
+        shouldReload.set(!isDataLoaded ? "Прогноз. Потяните за верх экрана, чтобы обновить." : "");
     }
 
     private void displayWeatherInfo(Fact weather) {

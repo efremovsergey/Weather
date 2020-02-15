@@ -1,4 +1,4 @@
-package com.efremov.weather.base.model.entities;
+package com.efremov.weather.core.model.entities;
 
 public class Info {
     private boolean f;
