@@ -5,7 +5,6 @@ import com.efremov.weather.BR;
 import com.efremov.weather.core.view.BaseFragment;
 import com.efremov.weather.databinding.FragmentWeekListBinding;
 
-
 public class WeekListFragment extends BaseFragment<WeekListFragmentVM, FragmentWeekListBinding> {
 
     public WeekListFragment() {

@@ -87,20 +87,21 @@ public class App extends Application {
 
     private void actualizateDate(Calendar currentTime) {
         List<Fact> actualizatedWeatherList = new ArrayList<>();
+        Fact actualizatedWeather = null;
         for (Fact item : weatherList) {
             Calendar itemDate = Calendar.getInstance();
             itemDate.setTimeInMillis(item.getHour_ts() * 1000L);
             itemDate.setTimeZone(currentTime.getTimeZone());
             if (isDatesAreEqual(FORMAT_BY_YYYY_MM_DD, currentTime, itemDate) &&
                     isDatesAreEqual(FORMAT_BY_HH, currentTime, itemDate)) {
-                setTodayWeather(item);
+                actualizatedWeather = item;
             }
             if (isDatesAreEqual(FORMAT_BY_YYYY_MM_DD, currentTime, itemDate) ||
                     itemDate.getTime().after(currentTime.getTime())) {
                 actualizatedWeatherList.add(item);
             }
         }
-        setWeatherList(actualizatedWeatherList);
+        saveWeatherCashe(actualizatedWeatherList, actualizatedWeather);
     }
 
     private boolean isDatesAreEqual(SimpleDateFormat formatter, Calendar first, Calendar second) {
@@ -111,18 +112,16 @@ public class App extends Application {
         return weatherList;
     }
 
-    public void setWeatherList(List<Fact> weatherList) {
+    public void saveWeatherCashe(List<Fact> weatherList, Fact todayWeather) {
         prefs.saveList(Prefs.APP_PREFERENCES_LIST_WEATHER, weatherList);
         this.weatherList = weatherList;
+        prefs.saveObject(Prefs.APP_PREFERENCES_TODAY_WEATHER, todayWeather);
+        this.todayWeather = todayWeather;
+        cashed = true;
     }
 
     public Fact getTodayWeather() {
         return todayWeather;
-    }
-
-    public void setTodayWeather(Fact todayWeather) {
-        prefs.saveObject(Prefs.APP_PREFERENCES_TODAY_WEATHER, todayWeather);
-        this.todayWeather = todayWeather;
     }
 
     public Retrofit getRetrofit() {

@@ -78,17 +78,16 @@ public class BaseFragmentVM<T extends BaseFragment> extends FragmentViewModel<T>
         isLoading.set(false);
         isRefreshing.set(false);
         isError.set(error != null);
+        isDataLoaded = true;
         if (error != null) {
             errorDescription.set(error);
         } else {
             weather.getFact().setDateParams(weather.getNowDt(), weather.getNow());
-            App.getInstance().setTodayWeather(weather.getFact());
             List<Fact> weatherList = new ArrayList<>();
             for (Forecasts forecast: weather.getForecasts()) {
                 weatherList.addAll(forecast.getHours());
             }
-            App.getInstance().setWeatherList(weatherList);
-            isDataLoaded = true;
+            App.getInstance().saveWeatherCashe(weatherList, weather.getFact());
             onWeatherSuccessLoading(weather);
         }
     }

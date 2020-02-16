@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -52,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="@{viewModel.getHoursAt(position).getHour()}"
+                    android:text="@{viewModel.getHourTextAt(position)}"
                     android:textColor="@android:color/background_dark"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{viewModel.getHoursAt(position).getWindSpeedString()}"
+                    android:text="@{viewModel.getWindSpeedString(position)}"
                     android:textColor="@android:color/background_dark"
                     android:textSize="18sp"
                     android:textStyle="bold"

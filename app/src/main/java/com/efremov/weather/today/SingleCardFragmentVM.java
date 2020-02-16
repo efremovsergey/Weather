@@ -8,9 +8,6 @@ import androidx.databinding.ObservableField;
 import com.efremov.weather.core.model.entities.Fact;
 import com.efremov.weather.core.model.entities.Weather;
 import com.efremov.weather.core.viewmodel.BaseFragmentVM;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.Objects;
 
 public class SingleCardFragmentVM extends BaseFragmentVM<SingleCardFragment> {
 

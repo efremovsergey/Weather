@@ -55,6 +55,22 @@ public class WeekListFragmentVM extends BaseFragmentVM<WeekListFragment> {
         return null;
     }
 
+    public String getHourTextAt(Integer index) {
+        if (hours.get(index) != null && hours.get(index).getHour() != null) {
+            String hour = hours.get(index).getHour();
+            return (hour.length() == 1 ? "0" + hour : hour) + ":00";
+        }
+        return null;
+    }
+
+    public String getWindSpeedString(Integer index) {
+        if (hours.get(index) != null && hours.get(index).getWind_speed() != null) {
+            double speed = hours.get(index).getWind_speed();
+            return speed + " м/c";
+        }
+        return null;
+    }
+
     private void setHoursInAdapter(List<Fact> hours) {
         this.adapter.setForecasts(hours);
         this.adapter.notifyDataSetChanged();

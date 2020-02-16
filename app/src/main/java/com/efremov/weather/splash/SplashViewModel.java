@@ -1,7 +1,6 @@
 package com.efremov.weather.splash;
 
 import android.location.Location;
-import android.location.LocationManager;
 
 import androidx.databinding.ObservableField;
 

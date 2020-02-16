@@ -17,7 +17,6 @@ public class Prefs {
     private static final String APP_PREFERENCES = "mysettings";
 
     static final String APP_PREFERENCES_TODAY_WEATHER = "TodayWeather";
-    static final String APP_PREFERENCES_LAST_UPDATED = "LastUpdated";
     static final String APP_PREFERENCES_LIST_WEATHER = "ListWeather";
 
     private SharedPreferences mSettings;
