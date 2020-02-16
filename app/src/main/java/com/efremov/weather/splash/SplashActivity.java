@@ -4,16 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.location.LocationManager;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.annotation.NonNull;
 
 import com.efremov.weather.R;
-import com.efremov.weather.core.model.PermissionRequester;
-import com.efremov.weather.core.view.BaseActivity;
 import com.efremov.weather.databinding.ActivitySplashBinding;
 import com.efremov.weather.main.MainActivity;
 import com.stfalcon.androidmvvmhelper.mvvm.activities.BindingActivity;
@@ -38,8 +33,7 @@ public class SplashActivity extends BindingActivity<ActivitySplashBinding, Splas
     @Override
     protected void onStart() {
         super.onStart();
-//        LocalBroadcastManager.getInstance(getContext()).registerReceiver(PermissionRequester.getInstance()., this);
-//        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+        checkPermission();
     }
 
     public void navigate() {
@@ -49,5 +43,27 @@ public class SplashActivity extends BindingActivity<ActivitySplashBinding, Splas
 
     public Context getContext() {
         return SplashActivity.this;
+    }
+
+    private void checkPermission() {
+        if (PackageManager.PERMISSION_GRANTED == checkSelfPermission(
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            getViewModel().onLocationFind(lm != null ? lm.getLastKnownLocation(LocationManager.GPS_PROVIDER) : null);
+        } else {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (PackageManager.PERMISSION_GRANTED == checkSelfPermission(
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            getViewModel().onLocationFind(lm != null ? lm.getLastKnownLocation(LocationManager.GPS_PROVIDER) : null);
+        } else {
+            getViewModel().onLocationFind(null);
+        }
     }
 }
