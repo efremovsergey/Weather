@@ -18,5 +18,11 @@
     <string name="exit_message">Вы точно хотите выйти из приложения?</string>
     <string name="no">Нет</string>
     <string name="yes">Да</string>
+    <string name="meters_per_second">м/c</string>
+    <string name="forecast_placeholder">Прогноз. Потяните за верх экрана, чтобы обновить.</string>
+    <string name="old_data">Данные устарели</string>
+    <string name="new_data">Данные актуальны</string>
+    <string name="error_reading">Ошибка чтения данных из кэша!</string>
+    <string name="unknown">Неизвестно</string>
 
 </resources>

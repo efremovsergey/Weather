@@ -5,6 +5,7 @@ import android.os.Handler;
 
 import androidx.databinding.ObservableField;
 
+import com.efremov.weather.R;
 import com.efremov.weather.core.model.entities.Fact;
 import com.efremov.weather.core.model.entities.Weather;
 import com.efremov.weather.core.viewmodel.BaseFragmentVM;
@@ -46,8 +47,8 @@ public class SingleCardFragmentVM extends BaseFragmentVM<SingleCardFragment> {
     }
 
     private void displayMainData() {
-        name.set("Данные " + (!isDataLoaded ? "устарели" : "актуальны"));
-        shouldReload.set(!isDataLoaded ? "Прогноз. Потяните за верх экрана, чтобы обновить." : "");
+        name.set(!isDataLoaded ? getFragment().getString(R.string.old_data) : getFragment().getString(R.string.new_data));
+        shouldReload.set(!isDataLoaded ? getFragment().getString(R.string.forecast_placeholder) : "");
     }
 
     private void displayWeatherInfo(Fact weather) {

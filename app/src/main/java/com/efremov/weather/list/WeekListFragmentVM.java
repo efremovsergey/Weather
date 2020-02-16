@@ -66,7 +66,7 @@ public class WeekListFragmentVM extends BaseFragmentVM<WeekListFragment> {
     public String getWindSpeedString(Integer index) {
         if (hours.get(index) != null && hours.get(index).getWind_speed() != null) {
             double speed = hours.get(index).getWind_speed();
-            return speed + " м/c";
+            return speed + getFragment().getString(R.string.meters_per_second);
         }
         return null;
     }

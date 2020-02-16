@@ -66,7 +66,7 @@ public class BaseFragmentVM<T extends BaseFragment> extends FragmentViewModel<T>
                     onWeatherCacheLoading(todayWeather);
                     onWeatherListCacheLoading(listWeather);
                 } else {
-                    onWeatherLoaded(null, "Ошибка чтения данных из кэша!");
+                    onWeatherLoaded(null, getActivity().getString(R.string.error_reading));
                 }
                 break;
             case OFFLINE:
@@ -109,13 +109,13 @@ public class BaseFragmentVM<T extends BaseFragment> extends FragmentViewModel<T>
                     .getLatitude(), location.getLongitude(), 1);
         } catch (IOException e) {
             e.printStackTrace();
-            return "Неизвестно";
+            return getActivity().getString(R.string.unknown);
         }
         if (list != null & list.size() > 0) {
             Address address = list.get(0);
             return address.getLocality();
         }
-        return "Неизвестно";
+        return getActivity().getString(R.string.unknown);
     }
 
     public Location getMyLocation() {
